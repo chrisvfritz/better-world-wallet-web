@@ -1,0 +1,43 @@
+#channel_search {
+  > .form-group { margin-bottom: 0; }
+
+  input {
+    border-radius: 0;
+  }
+
+  tr {
+    cursor: e-resize;
+
+    &.added {
+      cursor: default;
+      background: #ADEAC7;
+      opacity: 0.4;
+    }
+  }
+
+  td {
+    img { max-width: 30px; }
+  }
+}
+
+#donatees {
+  table { margin-left: -3px; }
+
+  tr {
+    border-left: 3px solid white;
+    transition: border-left 2s;
+
+    &.just_added {
+      border-left: 3px solid #ADEAC7;
+      transition: border-left 1s;
+    }
+  }
+
+  td {
+    line-height: 30px;
+
+    .form-group { margin-bottom: 0; }
+  }
+
+  .donation_perentage { width: 45px; }
+}
