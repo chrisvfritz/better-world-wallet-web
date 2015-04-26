@@ -17,7 +17,10 @@ gulp.task 'js', ->
   gulp.src 'src/coffee/main.cjsx', { read: false }
     .pipe handle_errors browserify
       transform: ['coffee-reactify']
-      extensions: ['.cjsx']
+      extensions: [
+          '.coffee'
+          '.cjsx'
+        ]
       paths: [
         './node_modules'
         './src/coffee'

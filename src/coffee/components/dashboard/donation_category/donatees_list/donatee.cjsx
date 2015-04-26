@@ -21,8 +21,8 @@ module.exports = React.createClass
   ]
 
   propTypes:
-    id: React.PropTypes.string
-    title: React.PropTypes.string
+    id:      React.PropTypes.string.isRequired
+    title:   React.PropTypes.string.isRequired
     percent: React.PropTypes.string
 
   componentDidMount: ->
@@ -31,7 +31,9 @@ module.exports = React.createClass
   render: ->
     <tr>
       <td width='100%'>
-        { @props.title }
+        <a href="https://www.youtube.com/channel/#{ @props.id }" target='_blank'>
+          { @props.title }
+        </a>
       </td>
       <td>
         <PercentageInput

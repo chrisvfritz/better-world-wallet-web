@@ -1,23 +1,17 @@
-#channel_search {
-  > .form-group { margin-bottom: 0; }
+body { background: #F9F7F5; }
 
-  input {
-    border-radius: 0;
-  }
-
+.youtube_channel_search_results {
   tr {
-    cursor: e-resize;
+    cursor: copy;
 
     &.added {
       cursor: default;
-      background: #ADEAC7;
-      opacity: 0.4;
+      background: #ADEAC7 !important;
+      opacity: 0.5;
     }
   }
 
-  td {
-    img { max-width: 30px; }
-  }
+  img { max-width: 30px; }
 }
 
 #donatees {
@@ -33,11 +27,81 @@
     }
   }
 
-  td {
-    line-height: 30px;
-
-    .form-group { margin-bottom: 0; }
-  }
+  td { line-height: 30px; }
 
   .donation_perentage { width: 45px; }
+}
+
+.donation_category {
+  .form-group { margin-bottom: 0; }
+
+  h3 {
+    line-height: 34px;
+    margin: 0;
+  }
+
+  table { margin: 0; }
+}
+
+.card {
+  padding: 1.5rem;
+  box-shadow: 0 1px 2px #aaa;
+  background: white;
+  margin: 1rem 1rem 1rem;
+  border-radius: 3px;
+  user-select: none;
+
+  > *:first-child { margin-top:    0; }
+  > *:last-child  { margin-bottom: 0; }
+}
+
+.donation_amount_heading {
+  margin: 10px 0;
+  display: table;
+
+  > span {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 4px;
+
+    &:first-of-type { padding-left:  0; }
+    &:last-of-type  { padding-right: 0; }
+
+    &:nth-of-type(2) {
+      width: 100%;
+
+      .form-group, .input-group {
+        width: 100%;
+      }
+
+      .input-group-addon {
+        width: 30px;
+      }
+    }
+  }
+
+}
+
+.search_results_container {
+  position: relative;
+
+  table {
+    position: absolute;
+    background: #FCFFFA;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+    z-index: 3;
+  }
+}
+
+.donation_category_title {
+  width: 100%;
+  box-shadow: none;
+  border: none;
+  padding: 0;
+  font-size: 24px;
+  color: #333;
+  line-height: 34px;
+  font-weight: 500;
 }

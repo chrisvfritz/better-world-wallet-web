@@ -16,13 +16,15 @@ module.exports = React.createClass
   mixins: [ Reflux.connect DonateeStore, 'donatees' ]
 
   propTypes:
-    id:          React.PropTypes.string.isRequired
-    title:       React.PropTypes.string.isRequired
-    description: React.PropTypes.string.isRequired
-    thumbnail:   React.PropTypes.string.isRequired
+    id:             React.PropTypes.string.isRequired
+    title:          React.PropTypes.string.isRequired
+    description:    React.PropTypes.string.isRequired
+    thumbnail:      React.PropTypes.string.isRequired
+    click_callback: React.PropTypes.func.isRequired
 
   handle_click: ->
     DonateeActions.create @props
+    @props.click_callback()
 
   prevent_propagation: (event) ->
     if event.stopPropagation
@@ -39,7 +41,7 @@ module.exports = React.createClass
       onClick   = { @handle_click }
       className = { classes       }
     >
-      <td>
+      <td width=30>
         <img
           src = { @props.thumbnail }
           alt = 'Thumbnail'
@@ -55,6 +57,11 @@ module.exports = React.createClass
         </a>
       </td>
       <td>
-        { @props.description }
+        {
+          if @props.description.length > 60
+            @props.description[0..60] + '...'
+          else
+            @props.description
+        }
       </td>
     </tr>

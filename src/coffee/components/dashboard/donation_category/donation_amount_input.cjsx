@@ -28,7 +28,7 @@ module.exports = React.createClass
         onChange    = { @handle_change }
         value       = { amount         }
         addonBefore = '$'
-        bsSize      = 'large'
+        bsSize      = 'medium'
         type        = 'text'
         placeholder = '0'
       />

@@ -7,6 +7,9 @@ DonateeActions = require 'actions/donatee'
 module.exports = React.createClass
   displayName: 'RemoveDonateeButton'
 
+  propTypes:
+    donatee_id: React.PropTypes.string.isRequired
+
   handle_click: ->
     DonateeActions.destroy @props.donatee_id
 

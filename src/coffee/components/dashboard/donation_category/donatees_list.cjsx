@@ -20,14 +20,13 @@ module.exports = React.createClass
 
   render: ->
     sorted_donatees = @state.donatees.sort (a,b) ->
-      return -1 if a.title < b.title
-      return  1 if a.title > b.title
+      title_a = a.title.toLowerCase()
+      title_b = b.title.toLowerCase()
+      return -1 if title_a < title_b
+      return  1 if title_a > title_b
       0
 
     <div id='donatees'>
-      <h2>
-        Donating <DonationAmountInput/> to
-      </h2>
       <Table striped=true>
         <tbody>
           {
