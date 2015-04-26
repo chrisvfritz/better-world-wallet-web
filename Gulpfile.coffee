@@ -6,6 +6,7 @@ jade       = require 'gulp-jade'
 sass       = require 'gulp-sass'
 minify_css = require 'gulp-minify-css'
 gutil      = require 'gulp-util'
+gh_pages   = require 'gulp-gh-pages'
 
 gulp.task 'html', ->
   gulp.src 'src/*.jade'
@@ -30,6 +31,10 @@ gulp.task 'css', ->
     .pipe handle_errors sass()
     .pipe handle_errors minify_css()
     .pipe gulp.dest 'dist/css'
+
+gulp.task 'deploy', ->
+  gulp.src 'dist/**/*'
+    .pipe gh_pages()
 
 gulp.task 'default', ['html', 'js', 'css', 'watch']
 
