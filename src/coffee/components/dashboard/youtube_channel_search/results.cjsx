@@ -1,11 +1,11 @@
 # Vendor
 React = require 'react'
 
-# Components
-Channel = require './results/channel'
-
 # Bootstrap
 Table = require 'react-bootstrap/lib/Table'
+
+# Components
+Channel = require './results/channel'
 
 module.exports = React.createClass
   displayName: 'Results'

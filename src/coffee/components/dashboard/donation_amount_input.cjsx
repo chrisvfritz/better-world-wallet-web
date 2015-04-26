@@ -3,14 +3,14 @@ React      = require 'react'
 Reflux     = require 'reflux'
 Accounting = require 'accounting'
 
-# Bootstrap
-Input = require 'react-bootstrap/lib/Input'
-
 # Stores
 DonationStore = require 'stores/donation'
 
 # Actions
 DonationActions = require 'actions/donation'
+
+# Bootstrap
+Input = require 'react-bootstrap/lib/Input'
 
 module.exports = React.createClass
   displayName: 'DonationAmountInput'
