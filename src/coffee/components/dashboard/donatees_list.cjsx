@@ -28,7 +28,7 @@ module.exports = React.createClass
       <h2>
         Donating <DonationAmountInput/> to
       </h2>
-      <Table striped='true'>
+      <Table striped=true>
         <tbody>
           {
             if sorted_donatees.length > 0

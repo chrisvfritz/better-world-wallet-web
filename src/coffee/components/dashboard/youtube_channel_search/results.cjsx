@@ -11,7 +11,7 @@ module.exports = React.createClass
   displayName: 'Results'
 
   render: ->
-    <Table hover='true'>
+    <Table hover=true>
       <tbody>
         {
           for channel in @props.channels
