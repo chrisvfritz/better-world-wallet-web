@@ -1,7 +1,7 @@
 {
-  "name": "better-world-wallet-frontend-webapp",
+  "name": "better-world-wallet-web",
   "version": "1.0.0",
-  "description": "Frontend webapp for Better World Wallet",
+  "description": "Frontend for Better World Wallet webapp",
   "main": "dist/",
   "dependencies": {
     "http-server": "^0.8.0"
@@ -33,7 +33,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/chrisvfritz/better-world-wallet.git"
+    "url": "git://github.com/chrisvfritz/better-world-wallet-web.git"
   },
   "keywords": [
     "donation",
@@ -42,7 +42,7 @@
   "author": "Chris Fritz",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chrisvfritz/better-world-wallet/issues"
+    "url": "https://github.com/chrisvfritz/better-world-wallet-web/issues"
   },
-  "homepage": "https://github.com/chrisvfritz/better-world-wallet"
+  "homepage": "https://github.com/chrisvfritz/better-world-wallet-web"
 }
