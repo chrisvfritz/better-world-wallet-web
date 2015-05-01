@@ -48,6 +48,8 @@ module.exports = Reflux.createStore
     donatee_index = _donation_categories[category_index].donatees.indexOf _.find( _donation_categories[category_index].donatees, (d) -> donatee_id is d.id )
     # Update
     _donation_categories[category_index].donatees.splice donatee_index, 1
+    if _donation_categories.length > 1 and _donation_categories[category_index].donatees.length == 0
+      _donation_categories.splice category_index, 1
     # Callback
     @trigger _donation_categories
 
