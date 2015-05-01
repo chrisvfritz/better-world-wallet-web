@@ -1,5 +1,6 @@
 # Vendor
-React = require 'React'
+React = require 'react'
+_     = require 'lodash'
 
 # Actions
 DonationCategoryActions = require 'actions/donation_category'
@@ -18,7 +19,10 @@ module.exports = React.createClass
   displayName: 'DonationCategory'
 
   propTypes:
-    title: React.PropTypes.string.isRequired
+    id:       React.PropTypes.number.isRequired
+    title:    React.PropTypes.string.isRequired
+    donation: React.PropTypes.number.isRequired
+    donatees: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
 
   getInitialState: ->
     search_query: ''
@@ -35,7 +39,9 @@ module.exports = React.createClass
       search_results: []
 
   handle_title_change: (event) ->
-    DonationCategoryActions.update event.target.value
+    DonationCategoryActions.update
+      id: @props.id
+      title: event.target.value
 
   render: ->
     <div className='donation_category card'>
@@ -58,10 +64,21 @@ module.exports = React.createClass
       </Row>
       <YoutubeChannelSearchResults
         clear_search_callback = { @clear_search         }
+        donatees              = { @props.donatees       }
         channels              = { @state.search_results }
+        category_id           = { @props.id             }
       />
       <h4 className='donation_amount_heading'>
-        Donating <DonationAmountInput/> to
+        Donating
+        <DonationAmountInput
+          category_id = { @props.id       }
+          amount      = { @props.donation }
+        />
+        to
       </h4>
-      <DonateesList/>
+      <DonateesList
+        category_id = { @props.id       }
+        donatees    = { @props.donatees }
+        donation    = { @props.donation }
+      />
     </div>

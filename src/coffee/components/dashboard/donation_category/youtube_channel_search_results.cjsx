@@ -13,6 +13,8 @@ module.exports = React.createClass
   propTypes:
     channels:              React.PropTypes.arrayOf(React.PropTypes.object).isRequired
     clear_search_callback: React.PropTypes.func.isRequired
+    donatees:              React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+    category_id:           React.PropTypes.number.isRequired
 
   render: ->
     <div className='search_results_container'>
@@ -21,9 +23,11 @@ module.exports = React.createClass
           {
             for channel in @props.channels
               <Channel
-                key            = { channel.id                    }
+                key            = { channel.id                   }
+                donatees       = { @props.donatees              }
                 click_callback = { @props.clear_search_callback }
-                {... channel }
+                channel_props  = { channel                      }
+                category_id    = { @props.category_id           }
               />
           }
         </tbody>

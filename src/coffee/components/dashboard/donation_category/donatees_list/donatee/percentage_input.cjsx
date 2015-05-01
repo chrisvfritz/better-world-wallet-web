@@ -2,10 +2,6 @@
 React  = require 'react'
 Reflux = require 'reflux'
 
-# Stores
-DonateeStore  = require 'stores/donatee'
-DonationStore = require 'stores/donation'
-
 # Bootstrap
 Input = require 'react-bootstrap/lib/Input'
 
@@ -24,9 +20,7 @@ module.exports = React.createClass
   handle_change: (event) ->
     value = event.target.value
     unless value > @props.max
-      DonateeStore.update
-        id: @props.donatee_id
-        percent: value
+      @props.update_callback value
 
   render: ->
     <Input

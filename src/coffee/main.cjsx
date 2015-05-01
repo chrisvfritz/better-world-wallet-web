@@ -1,4 +1,7 @@
-Dashboard   = require './components/dashboard'
-React       = require 'react'
+# Vendor
+React    = require 'react'
 
-React.render <Dashboard/>, document.getElementById 'dashboard'
+# Components
+Dashboard = require './components/dashboard'
+
+React.render <Dashboard/>, document.getElementById('dashboard')

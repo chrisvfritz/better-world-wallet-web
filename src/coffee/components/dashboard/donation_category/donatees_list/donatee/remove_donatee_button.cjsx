@@ -1,21 +1,12 @@
 # Vendor
 React = require 'react'
 
-# Actions
-DonateeActions = require 'actions/donatee'
-
 module.exports = React.createClass
   displayName: 'RemoveDonateeButton'
 
-  propTypes:
-    donatee_id: React.PropTypes.string.isRequired
-
-  handle_click: ->
-    DonateeActions.destroy @props.donatee_id
-
   render: ->
     <button
-      onClick   = { @handle_click }
+      onClick   = { @props.remove_callback }
       className = 'btn btn-xs btn-danger'
     >
       x

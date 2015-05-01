@@ -3,27 +3,24 @@ React  = require 'react'
 Reflux = require 'reflux'
 _      = require 'lodash'
 
-# Stores
-DonateeStore = require 'stores/donatee'
-
 # Actions
-DonateeActions = require 'actions/donatee'
+DonationCategoryActions = require 'actions/donation_category'
 
 module.exports = React.createClass
   displayName: 'Channel'
 
-  # Binds changes in the DonateeStore to @state.donatees
-  mixins: [ Reflux.connect DonateeStore, 'donatees' ]
-
   propTypes:
-    id:             React.PropTypes.string.isRequired
-    title:          React.PropTypes.string.isRequired
-    description:    React.PropTypes.string.isRequired
-    thumbnail:      React.PropTypes.string.isRequired
+    channel_props:  React.PropTypes.object.isRequired
     click_callback: React.PropTypes.func.isRequired
+    donatees:       React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+    category_id:    React.PropTypes.number.isRequired
 
   handle_click: ->
-    DonateeActions.create @props
+    new_donatees = @props.donatees
+    new_donatees.push @props.channel_props
+    DonationCategoryActions.update
+      id: @props.category_id
+      donatees: new_donatees
     @props.click_callback()
 
   prevent_propagation: (event) ->
@@ -34,7 +31,7 @@ module.exports = React.createClass
 
   render: ->
     classes = _.compact([
-      'added' if @props.id in @state.donatees.map (donatee) -> donatee.id
+      'added' if @props.channel_props.id in @props.donatees.map (donatee) -> donatee.id
     ]).join ' '
 
     <tr
@@ -43,25 +40,25 @@ module.exports = React.createClass
     >
       <td width=30>
         <img
-          src = { @props.thumbnail }
+          src = { @props.channel_props.thumbnail }
           alt = 'Thumbnail'
         />
       </td>
       <td>
         <a
           onClick = { @prevent_propagation }
-          href    = "https://www.youtube.com/channel/#{ @props.id }"
+          href    = "https://www.youtube.com/channel/#{ @props.channel_props.id }"
           target  = '_blank'
         >
-          { @props.title }
+          { @props.channel_props.title }
         </a>
       </td>
       <td>
         {
-          if @props.description.length > 60
-            @props.description[0..60] + '...'
+          if @props.channel_props.description.length > 60
+            @props.channel_props.description[0..60] + '...'
           else
-            @props.description
+            @props.channel_props.description
         }
       </td>
     </tr>

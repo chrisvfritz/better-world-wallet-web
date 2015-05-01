@@ -1,21 +1,10 @@
 body { background: #F9F7F5; }
 
-.youtube_channel_search_results {
-  tr {
-    cursor: copy;
-
-    &.added {
-      cursor: default;
-      background: #ADEAC7 !important;
-      opacity: 0.5;
-    }
+.donatees_list {
+  table {
+    margin-left: -3px;
+    margin-bottom: 0;
   }
-
-  img { max-width: 30px; }
-}
-
-#donatees {
-  table { margin-left: -3px; }
 
   tr {
     border-left: 3px solid white;
@@ -27,7 +16,7 @@ body { background: #F9F7F5; }
     }
   }
 
-  td { line-height: 30px; }
+  td { line-height: 30px !important; }
 
   .donation_perentage { width: 45px; }
 }
@@ -39,8 +28,6 @@ body { background: #F9F7F5; }
     line-height: 34px;
     margin: 0;
   }
-
-  table { margin: 0; }
 }
 
 .card {
@@ -79,7 +66,6 @@ body { background: #F9F7F5; }
       }
     }
   }
-
 }
 
 .search_results_container {
@@ -93,6 +79,18 @@ body { background: #F9F7F5; }
     box-shadow: 0 2px 3px rgba(0,0,0,0.2);
     z-index: 3;
   }
+
+  tr {
+      cursor: copy;
+
+      &.added {
+        cursor: default;
+        background: #DDFFE4 !important;
+        opacity: 0.4;
+      }
+    }
+
+  img { width: 30px; }
 }
 
 .donation_category_title {
@@ -104,4 +102,17 @@ body { background: #F9F7F5; }
   color: #333;
   line-height: 34px;
   font-weight: 500;
+  outline: none;
+}
+
+#total_donations {
+  display: table;
+
+  > * {
+    display: table-cell;
+    line-height: 1;
+    vertical-align: middle;
+
+    &:first-child { width: 100%;  }
+  }
 }

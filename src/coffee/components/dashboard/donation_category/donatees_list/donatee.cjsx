@@ -4,10 +4,6 @@ Reflux     = require 'reflux'
 _          = require 'lodash'
 Accounting = require 'accounting'
 
-# Stores
-DonateeStore  = require 'stores/donatee'
-DonationStore = require 'stores/donation'
-
 # Components
 RemoveDonateeButton = require './donatee/remove_donatee_button'
 PercentageInput     = require './donatee/percentage_input'
@@ -15,15 +11,16 @@ PercentageInput     = require './donatee/percentage_input'
 module.exports = React.createClass
   displayName: 'Donatee'
 
-  mixins: [
-    Reflux.connect DonationStore, 'donation_amount'
-    Reflux.connect DonateeStore,  'donatees'
-  ]
-
   propTypes:
     id:      React.PropTypes.string.isRequired
     title:   React.PropTypes.string.isRequired
     percent: React.PropTypes.string
+
+  remove_donatee: ->
+    @props.remove_callback @props.id
+
+  update_percent: (percent) ->
+    @props.percent_callback @props.id, percent
 
   componentDidMount: ->
     @highlight()
@@ -41,13 +38,17 @@ module.exports = React.createClass
           default_percent = { @visible_default_percent() }
           percent         = { @props.percent             }
           max             = { @max()                     }
+          update_callback = { @update_percent            }
         />
       </td>
       <td>
         { Accounting.formatMoney @money() }
       </td>
       <td>
-        <RemoveDonateeButton donatee_id={ @props.id }/>
+        <RemoveDonateeButton
+          donatee_id      = { @props.id       }
+          remove_callback = { @remove_donatee }
+        />
       </td>
     </tr>
 
@@ -61,7 +62,7 @@ module.exports = React.createClass
     , 1
 
   money: ->
-    @state.donation_amount * @percent_to_use_for_money()
+    @props.donation * @percent_to_use_for_money()
 
   max: ->
     100 - (@defined_percent_sum() - @props.percent)
@@ -73,10 +74,10 @@ module.exports = React.createClass
     Math.floor( @real_default_percent() * 100 )
 
   real_default_percent: ->
-    (1 - @defined_percent_sum() / 100) / (@state.donatees.length - @defined_percents().length)
+    (1 - @defined_percent_sum() / 100) / (@props.donatees.length - @defined_percents().length)
 
   defined_percent_sum: ->
     if @defined_percents().length > 0 then @defined_percents().reduce((a,b) -> a + b) else 0
 
   defined_percents: ->
-    _.compact @state.donatees.map( (d) -> parseInt(d.percent) )
+    _.compact @props.donatees.map( (d) -> parseInt(d.percent) )

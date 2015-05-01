@@ -25,7 +25,7 @@ gulp.task 'js', ->
         './node_modules'
         './src/coffee'
       ]
-    .pipe handle_errors uglify()
+    #.pipe handle_errors uglify()
     .pipe rename 'main.js'
     .pipe gulp.dest 'dist/js'
 
@@ -43,7 +43,10 @@ gulp.task 'default', ['html', 'js', 'css', 'watch']
 
 gulp.task 'watch', ->
   gulp.watch 'src/**/*.jade', ['html']
-  gulp.watch 'src/coffee/**/*.cjsx', ['js']
+  gulp.watch [
+    'src/coffee/**/*.coffee'
+    'src/coffee/**/*.cjsx'
+  ], ['js']
   gulp.watch 'src/scss/**/*.scss', ['css']
 
 # --------------
