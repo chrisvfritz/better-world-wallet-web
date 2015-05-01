@@ -25,7 +25,7 @@ gulp.task 'js', ->
         './node_modules'
         './src/coffee'
       ]
-    #.pipe handle_errors uglify()
+    .pipe handle_errors uglify()
     .pipe rename 'main.js'
     .pipe gulp.dest 'dist/js'
 
