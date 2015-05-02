@@ -6,48 +6,114 @@ jade       = require 'gulp-jade'
 sass       = require 'gulp-sass'
 minify_css = require 'gulp-minify-css'
 gutil      = require 'gulp-util'
+webserver  = require 'gulp-webserver'
 gh_pages   = require 'gulp-gh-pages'
 
-gulp.task 'html', ->
-  gulp.src 'src/*.jade'
-    .pipe handle_errors jade()
-    .pipe gulp.dest 'dist'
+# -------------
+# Configuration
+# -------------
 
-gulp.task 'js', ->
-  gulp.src 'src/coffee/main.cjsx', { read: false }
+CONFIG =
+  src:
+    dir: 'src'
+  dev:
+    dir: 'tmp/live'
+  prod:
+    dir: 'dist'
+  coffee:
+    dir: 'coffee'
+    main:
+      name: 'main'
+      extension: '.cjsx'
+    extensions: [
+      '.coffee'
+      '.cjsx'
+    ]
+    transformations: [
+      'coffee-reactify'
+    ]
+  scss:
+    dir: 'scss'
+    main:
+      name: 'main'
+      extension: '.scss'
+
+CONFIG.coffee.paths = [
+  'node_modules'
+  "#{CONFIG.src.dir}/#{CONFIG.coffee.dir}"
+]
+
+# -----------
+# Development
+# -----------
+
+gulp.task 'dev:html', ->
+  gulp.src "#{CONFIG.src.dir}/*.jade"
+    .pipe handle_errors jade
+      pretty: true
+    .pipe gulp.dest CONFIG.dev.dir
+
+gulp.task 'dev:js', ->
+  gulp.src "#{CONFIG.src.dir}/#{CONFIG.coffee.dir}/#{CONFIG.coffee.main.name}#{CONFIG.coffee.main.extension}", { read: false }
     .pipe handle_errors browserify
-      transform: ['coffee-reactify']
-      extensions: [
-        '.coffee'
-        '.cjsx'
-      ]
-      paths: [
-        './node_modules'
-        './src/coffee'
-      ]
-    .pipe handle_errors uglify()
-    .pipe rename 'main.js'
-    .pipe gulp.dest 'dist/js'
+      transform:  CONFIG.coffee.transformations
+      extensions: CONFIG.coffee.extensions
+      paths:      CONFIG.coffee.paths
+    .pipe rename "#{CONFIG.coffee.main.name}.js"
+    .pipe gulp.dest "#{CONFIG.dev.dir}/js"
 
-gulp.task 'css', ->
-  gulp.src 'src/scss/main.scss'
+gulp.task 'dev:css', ->
+  gulp.src "#{CONFIG.src.dir}/#{CONFIG.scss.dir}/#{CONFIG.scss.main.name}#{CONFIG.scss.main.extension}"
     .pipe handle_errors sass()
-    .pipe handle_errors minify_css()
-    .pipe gulp.dest 'dist/css'
+    .pipe gulp.dest "#{CONFIG.dev.dir}/css"
 
-gulp.task 'deploy', ->
-  gulp.src 'dist/**/*'
-    .pipe gh_pages()
+gulp.task 'dev:build', ['dev:html', 'dev:js', 'dev:css']
+
+gulp.task 'serve', ->
+  gulp.src CONFIG.dev.dir
+    .pipe webserver
+      livereload: true
+      open: true
 
 gulp.task 'watch', ->
-  gulp.watch 'src/**/*.jade', ['html']
-  gulp.watch [
-    'src/coffee/**/*.coffee'
-    'src/coffee/**/*.cjsx'
-  ], ['js']
-  gulp.watch 'src/scss/**/*.scss', ['css']
+  gulp.watch "#{CONFIG.src.dir}/**/*.jade", ['dev:html']
+  gulp.watch CONFIG.coffee.extensions.map (extension) ->
+    "#{CONFIG.src.dir}/#{CONFIG.coffee.dir}/**/*.#{extension}"
+  , ['dev:js']
+  gulp.watch "#{CONFIG.src.dir}/#{CONFIG.scss.dir}/**/*.scss", ['dev:css']
 
-gulp.task 'default', ['html', 'js', 'css', 'watch']
+gulp.task 'default', ['dev:build', 'serve', 'watch']
+
+# ----------
+# Production
+# ----------
+
+gulp.task 'prod:html', ->
+  gulp.src "#{CONFIG.src.dir}/*.jade"
+    .pipe handle_errors jade()
+    .pipe gulp.dest CONFIG.prod.dir
+
+gulp.task 'prod:js', ->
+  gulp.src "#{CONFIG.src.dir}/#{CONFIG.coffee.dir}/#{CONFIG.coffee.main.name}#{CONFIG.coffee.main.extension}", { read: false }
+    .pipe handle_errors browserify
+      transform:  CONFIG.coffee.transformations
+      extensions: CONFIG.coffee.extensions
+      paths:      CONFIG.coffee.paths
+    .pipe handle_errors uglify()
+    .pipe rename "#{CONFIG.coffee.main.name}.js"
+    .pipe gulp.dest "#{CONFIG.prod.dir}/js"
+
+gulp.task 'prod:css', ->
+  gulp.src "#{CONFIG.src.dir}/#{CONFIG.scss.dir}/#{CONFIG.scss.main.name}#{CONFIG.scss.main.extension}"
+    .pipe handle_errors sass()
+    .pipe handle_errors minify_css()
+    .pipe gulp.dest "#{CONFIG.prod.dir}/css"
+
+gulp.task 'prod:build', ['prod:html', 'prod:js', 'prod:css']
+
+gulp.task 'deploy', ->
+  gulp.src "#{CONFIG.prod.dir}/**/*"
+    .pipe gh_pages()
 
 # --------------
 # Helper Methods

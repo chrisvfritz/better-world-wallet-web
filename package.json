@@ -4,12 +4,10 @@
   "description": "Frontend for Better World Wallet webapp",
   "main": "dist/",
   "dependencies": {
-    "http-server": "^0.8.0"
   },
   "devDependencies": {
     "accounting": "^0.4.1",
     "backbone": "^1.1.2",
-    "backbone-lodash": "^1.1.0",
     "backbone-react-component": "^0.8.1",
     "coffee-reactify": "^3.0.0",
     "coffee-script": "^1.9.2",
@@ -23,19 +21,17 @@
     "gulp-sass": "^1.3.3",
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.4",
-    "live-server": "^0.7.1",
+    "gulp-webserver": "^0.9.0",
+    "jade": "^1.9.2",
     "localforage": "^1.2.2",
     "localforage-backbone": "^0.6.1",
     "lodash": "^3.7.0",
     "react": "^0.13.2",
     "react-bootstrap": "^0.21.0",
-    "reflux": "^0.2.7",
     "superagent": "^1.2.0",
-    "uglifyify": "^3.0.1",
     "underscore": "^1.8.3"
   },
   "scripts": {
-    "start": "http-server dist -a localhost -p 8000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -44,7 +40,8 @@
   },
   "keywords": [
     "donation",
-    "donating"
+    "donating",
+    "youtube"
   ],
   "author": "Chris Fritz",
   "license": "MIT",
