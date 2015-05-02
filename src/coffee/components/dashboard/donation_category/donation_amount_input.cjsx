@@ -1,10 +1,6 @@
 # Vendor
-React      = require 'react'
-Reflux     = require 'reflux'
-Accounting = require 'accounting'
-
-# Actions
-DonationCategoryActions = require 'actions/donation_category'
+React         = require 'react'
+BackboneMixin = require 'backbone-react-component'
 
 # Bootstrap
 Input = require 'react-bootstrap/lib/Input'
@@ -12,10 +8,13 @@ Input = require 'react-bootstrap/lib/Input'
 module.exports = React.createClass
   displayName: 'DonationAmountInput'
 
+  mixins: [ BackboneMixin ]
+
   handle_change: (event) ->
-    DonationCategoryActions.update
-      id: @props.category_id
-      donation: event.target.value
+    value = event.target.value
+    unless value and isNaN(value) or parseInt(value) < 0 or !/^[\d,]*\.?\d{0,2}$/.test(value)
+      @getModel().set
+        donation: value
 
   render: ->
     amount = if @props.amount == 0 then '' else @props.amount

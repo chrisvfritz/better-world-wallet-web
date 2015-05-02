@@ -1,26 +1,18 @@
 # Vendor
-React  = require 'react'
-Reflux = require 'reflux'
-_      = require 'lodash'
+React         = require 'react'
+BackboneMixin = require 'backbone-react-component'
+_compact      = require 'lodash/array/compact'
 
-# Actions
-DonationCategoryActions = require 'actions/donation_category'
+# Models
+DonateeModel = require 'models/donatee'
 
 module.exports = React.createClass
   displayName: 'Channel'
 
-  propTypes:
-    channel_props:  React.PropTypes.object.isRequired
-    click_callback: React.PropTypes.func.isRequired
-    donatees:       React.PropTypes.arrayOf(React.PropTypes.object).isRequired
-    category_id:    React.PropTypes.number.isRequired
+  mixins: [ BackboneMixin ]
 
   handle_click: ->
-    new_donatees = @props.donatees
-    new_donatees.push @props.channel_props
-    DonationCategoryActions.update
-      id: @props.category_id
-      donatees: new_donatees
+    @getCollection().add new DonateeModel(@props.channel_props)
     @props.click_callback()
 
   prevent_propagation: (event) ->
@@ -30,8 +22,8 @@ module.exports = React.createClass
       window.event.cancelBubble = true
 
   render: ->
-    classes = _.compact([
-      'added' if @props.channel_props.id in @props.donatees.map (donatee) -> donatee.id
+    classes = _compact([
+      'added' if @props.channel_props.id in @getCollection().models.map (donatee) -> donatee.id
     ]).join ' '
 
     <tr

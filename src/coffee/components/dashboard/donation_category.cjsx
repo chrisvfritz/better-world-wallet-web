@@ -1,9 +1,6 @@
 # Vendor
-React = require 'react'
-_     = require 'lodash'
-
-# Actions
-DonationCategoryActions = require 'actions/donation_category'
+React         = require 'react'
+BackboneMixin = require 'backbone-react-component'
 
 # Bootstrap
 Row = require 'react-bootstrap/lib/Row'
@@ -18,11 +15,7 @@ DonateesList                = require './donation_category/donatees_list'
 module.exports = React.createClass
   displayName: 'DonationCategory'
 
-  propTypes:
-    id:       React.PropTypes.number.isRequired
-    title:    React.PropTypes.string.isRequired
-    donation: React.PropTypes.number.isRequired
-    donatees: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+  mixins: [ BackboneMixin ]
 
   getInitialState: ->
     search_query: ''
@@ -39,16 +32,16 @@ module.exports = React.createClass
       search_results: []
 
   handle_title_change: (event) ->
-    DonationCategoryActions.update
-      id: @props.id
+    @getCollection().get(@props.model.cid).set
       title: event.target.value
 
   render: ->
+
     <div className='donation_category card'>
       <Row>
         <Col md=6>
           <input
-            value     = { @props.title         }
+            value     = { @props.model.attributes.title }
             onChange  = { @handle_title_change }
             className = 'donation_category_title'
             type      = 'text'
@@ -56,29 +49,26 @@ module.exports = React.createClass
         </Col>
         <Col md=6>
           <YoutubeChannelSearch
+            query                 = { @state.search_query }
             search_callback       = { @update_search      }
             clear_search_callback = { @clear_search       }
-            query                 = { @state.search_query }
           />
         </Col>
       </Row>
       <YoutubeChannelSearchResults
-        clear_search_callback = { @clear_search         }
-        donatees              = { @props.donatees       }
-        channels              = { @state.search_results }
-        category_id           = { @props.id             }
+        collection            = { @props.model.attributes.donatees }
+        channels              = { @state.search_results            }
+        clear_search_callback = { @clear_search                    }
       />
       <h4 className='donation_amount_heading'>
         Donating
         <DonationAmountInput
-          category_id = { @props.id       }
-          amount      = { @props.donation }
+          amount = { @props.model.attributes.donation }
         />
         to
       </h4>
       <DonateesList
-        category_id = { @props.id       }
-        donatees    = { @props.donatees }
-        donation    = { @props.donation }
+        collection = { @props.model.attributes.donatees }
+        donation   = { @props.model.attributes.donation }
       />
     </div>

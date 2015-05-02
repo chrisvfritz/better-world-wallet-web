@@ -1,12 +1,9 @@
 # Vendor
-React  = require 'react'
-Reflux = require 'reflux'
+React         = require 'react'
+BackboneMixin = require 'backbone-react-component'
 
-# Stores
-DonationCategoryStore = require 'stores/donation_category'
-
-# Actions
-DonationCategoryActions = require 'actions/donation_category'
+# Models
+DonationCategoryModel = require 'models/donation_category'
 
 # Bootstrap
 Row       = require 'react-bootstrap/lib/Row'
@@ -20,22 +17,29 @@ DonationCategory = require './dashboard/donation_category'
 module.exports = React.createClass
   displayName: 'Dashboard'
 
-  mixins: [ Reflux.connect DonationCategoryStore, 'categories' ]
+  mixins: [ BackboneMixin ]
+
+  add_new_category: ->
+    @getCollection().add new DonationCategoryModel()
+
+  donation_total: ->
+    @props.collection.models
+      .map (collection) ->
+        parseFloat(collection.attributes.donation || 0)
+      .reduce (a,b) -> a + b
+      .toFixed 2
 
   render: ->
+    window.arst = @getCollection()
     <Row>
       <Col md=6>
         <div className='card'>
-          <h3>Welcome!</h3>
-          <p>This is Better World Wallet!</p>
-        </div>
-      </Col>
-      <Col md=6>
-        <div className='card'>
           <div id='total_donations'>
-            <h2>Total Donations: ${ @state.categories.map( (d) -> parseInt d.donation ).reduce (a,b) -> a + b }</h2>
+            <h2>
+              Total Donations: ${ @donation_total() }
+            </h2>
             <Button
-              onClick = { DonationCategoryActions.create }
+              onClick = { @add_new_category }
               bsSize  = 'medium'
               bsStyle = 'primary'
             >
@@ -44,11 +48,17 @@ module.exports = React.createClass
           </div>
         </div>
         {
-          for category in @state.categories
+          @props.collection.models.map (category) ->
             <DonationCategory
-              key = { category.id }
-              {... category }
+              key   = { category.cid }
+              model = { category     }
             />
         }
+      </Col>
+      <Col md=6>
+        <div className='card'>
+          <h3>Welcome!</h3>
+          <p>This is Better World Wallet!</p>
+        </div>
       </Col>
     </Row>

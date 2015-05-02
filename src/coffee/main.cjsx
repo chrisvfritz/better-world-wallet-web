@@ -1,7 +1,16 @@
 # Vendor
-React    = require 'react'
+React = require 'react'
+
+# Models
+DonationCategories = require 'models/donation_categories'
+DonationCategory   = require 'models/donation_category'
 
 # Components
 Dashboard = require './components/dashboard'
 
-React.render <Dashboard/>, document.getElementById('dashboard')
+donation_categories = new DonationCategories [
+  new DonationCategory
+    title: 'General'
+]
+
+React.render <Dashboard collection={donation_categories}/>, document.getElementById('dashboard')

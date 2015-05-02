@@ -9,6 +9,8 @@
   "devDependencies": {
     "accounting": "^0.4.1",
     "backbone": "^1.1.2",
+    "backbone-lodash": "^1.1.0",
+    "backbone-react-component": "^0.8.1",
     "coffee-reactify": "^3.0.0",
     "coffee-script": "^1.9.2",
     "gulp": "^3.8.11",
@@ -22,12 +24,15 @@
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.4",
     "live-server": "^0.7.1",
+    "localforage": "^1.2.2",
+    "localforage-backbone": "^0.6.1",
     "lodash": "^3.7.0",
     "react": "^0.13.2",
     "react-bootstrap": "^0.21.0",
     "reflux": "^0.2.7",
     "superagent": "^1.2.0",
-    "uglifyify": "^3.0.1"
+    "uglifyify": "^3.0.1",
+    "underscore": "^1.8.3"
   },
   "scripts": {
     "start": "http-server dist -a localhost -p 8000",

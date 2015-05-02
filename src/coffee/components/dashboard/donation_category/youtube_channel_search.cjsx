@@ -14,11 +14,6 @@ ClearSearchButton = require './youtube_channel_search/clear_search_button'
 module.exports = React.createClass
   displayName: 'YoutubeChannelSearch'
 
-  propTypes:
-    query:                 React.PropTypes.string.isRequired
-    search_callback:       React.PropTypes.func.isRequired
-    clear_search_callback: React.PropTypes.func.isRequired
-
   componentWillReceiveProps: (next_props) ->
     @should_focus = @props.query.length > 0 and next_props.query.length == 0
 

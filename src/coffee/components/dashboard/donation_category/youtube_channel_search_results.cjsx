@@ -1,5 +1,6 @@
 # Vendor
-React = require 'react'
+React         = require 'react'
+BackboneMixin = require 'backbone-react-component'
 
 # Bootstrap
 Table = require 'react-bootstrap/lib/Table'
@@ -10,11 +11,7 @@ Channel = require './youtube_channel_search_results/channel'
 module.exports = React.createClass
   displayName: 'YoutubeChannelSearchResults'
 
-  propTypes:
-    channels:              React.PropTypes.arrayOf(React.PropTypes.object).isRequired
-    clear_search_callback: React.PropTypes.func.isRequired
-    donatees:              React.PropTypes.arrayOf(React.PropTypes.object).isRequired
-    category_id:           React.PropTypes.number.isRequired
+  mixins: [ BackboneMixin ]
 
   render: ->
     <div className='search_results_container'>
@@ -24,10 +21,9 @@ module.exports = React.createClass
             for channel in @props.channels
               <Channel
                 key            = { channel.id                   }
-                donatees       = { @props.donatees              }
+                donatees       = { @props.collection.moedels    }
                 click_callback = { @props.clear_search_callback }
                 channel_props  = { channel                      }
-                category_id    = { @props.category_id           }
               />
           }
         </tbody>

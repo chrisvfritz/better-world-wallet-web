@@ -18,9 +18,9 @@ gulp.task 'js', ->
     .pipe handle_errors browserify
       transform: ['coffee-reactify']
       extensions: [
-          '.coffee'
-          '.cjsx'
-        ]
+        '.coffee'
+        '.cjsx'
+      ]
       paths: [
         './node_modules'
         './src/coffee'
@@ -39,8 +39,6 @@ gulp.task 'deploy', ->
   gulp.src 'dist/**/*'
     .pipe gh_pages()
 
-gulp.task 'default', ['html', 'js', 'css', 'watch']
-
 gulp.task 'watch', ->
   gulp.watch 'src/**/*.jade', ['html']
   gulp.watch [
@@ -48,6 +46,8 @@ gulp.task 'watch', ->
     'src/coffee/**/*.cjsx'
   ], ['js']
   gulp.watch 'src/scss/**/*.scss', ['css']
+
+gulp.task 'default', ['html', 'js', 'css', 'watch']
 
 # --------------
 # Helper Methods

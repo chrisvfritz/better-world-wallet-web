@@ -1,9 +1,6 @@
 # Vendor
-React  = require 'react'
-Reflux = require 'reflux'
-
-# Actions
-DonationCategoryActions = require 'actions/donation_category'
+React         = require 'react'
+BackboneMixin = require 'backbone-react-component'
 
 # Bootstrap
 Table = require 'react-bootstrap/lib/Table'
@@ -15,16 +12,12 @@ DonationAmountInput = require './donation_amount_input'
 module.exports = React.createClass
   displayName: 'DonateesList'
 
-  remove_donatee: (donatee_id) ->
-    DonationCategoryActions.remove_donatee @props.category_id, donatee_id
-
-  update_percent: (donatee_id, percent) ->
-    DonationCategoryActions.update_donatee_percent @props.category_id, donatee_id, percent
+  mixins: [ BackboneMixin ]
 
   render: ->
-    sorted_donatees = @props.donatees.sort (a,b) ->
-      title_a = a.title.toLowerCase()
-      title_b = b.title.toLowerCase()
+    sorted_donatees = @props.collection.models.sort (a,b) ->
+      title_a = a.attributes.title.toLowerCase()
+      title_b = b.attributes.title.toLowerCase()
       return -1 if title_a < title_b
       return  1 if title_a > title_b
       0
@@ -36,12 +29,9 @@ module.exports = React.createClass
             if sorted_donatees.length > 0
               for donatee in sorted_donatees
                 <Donatee
-                  key              = { donatee.id      }
-                  donatees         = { @props.donatees }
-                  donation         = { @props.donation }
-                  remove_callback  = { @remove_donatee }
-                  percent_callback = { @update_percent }
-                  {... donatee }
+                  key      = { donatee.cid     }
+                  model    = { donatee         }
+                  donation = { @props.donation }
                 />
             else
               <tr>
