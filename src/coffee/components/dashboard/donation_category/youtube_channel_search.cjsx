@@ -1,6 +1,6 @@
 # Vendor
-React = require 'react'
-_     = require 'lodash'
+React     = require 'react'
+_debounce = require 'lodash/function/debounce'
 
 # APIs
 YoutubeSearch = require 'apis/youtube_search'
@@ -18,7 +18,7 @@ module.exports = React.createClass
     @should_focus = @props.query.length > 0 and next_props.query.length == 0
 
   componentWillMount: ->
-    @delayed_search = _.debounce (query) =>
+    @delayed_search = _debounce (query) =>
       if query.length > 0
         YoutubeSearch.channels
           query: query
