@@ -1,6 +1,8 @@
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
+_compact      = require 'lodash/array/compact'
+_flatten      = require 'lodash/array/flatten'
 
 # Bootstrap
 Table = require 'react-bootstrap/lib/Table'
@@ -13,6 +15,9 @@ module.exports = React.createClass
 
   mixins: [ BackboneMixin ]
 
+  all_donatee_ids: ->
+    _compact _flatten( @getCollection().models.map( (d) -> d.attributes.donatees.map (d) -> d.id ) )
+
   render: ->
     <div className='search_results_container'>
       <Table hover=true className='youtube_channel_search_results'>
@@ -21,7 +26,7 @@ module.exports = React.createClass
             for channel in @props.channels
               <Channel
                 key            = { channel.id                   }
-                donatees       = { @props.collection.moedels    }
+                donatee_ids    = { @all_donatee_ids()           }
                 click_callback = { @props.clear_search_callback }
                 channel_props  = { channel                      }
               />

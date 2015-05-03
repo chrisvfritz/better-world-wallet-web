@@ -56,9 +56,8 @@ module.exports = React.createClass
         </Col>
       </Row>
       <YoutubeChannelSearchResults
-        collection            = { @props.model.attributes.donatees }
-        channels              = { @state.search_results            }
-        clear_search_callback = { @clear_search                    }
+        channels              = { @state.search_results }
+        clear_search_callback = { @clear_search         }
       />
       <h4 className='donation_amount_heading'>
         Donating

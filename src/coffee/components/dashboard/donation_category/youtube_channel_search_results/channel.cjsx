@@ -12,8 +12,9 @@ module.exports = React.createClass
   mixins: [ BackboneMixin ]
 
   handle_click: ->
-    @getCollection().add new DonateeModel(@props.channel_props)
-    @props.click_callback()
+    unless @is_already_added()
+      @getModel().attributes.donatees.add new DonateeModel(@props.channel_props)
+      @props.click_callback()
 
   prevent_propagation: (event) ->
     if event.stopPropagation
@@ -21,9 +22,12 @@ module.exports = React.createClass
     else if window.event
       window.event.cancelBubble = true
 
+  is_already_added: ->
+    @props.channel_props.id in @props.donatee_ids
+
   render: ->
     classes = _compact([
-      'added' if @props.channel_props.id in @getCollection().models.map (donatee) -> donatee.id
+      'added' if @is_already_added()
     ]).join ' '
 
     <tr
