@@ -32,7 +32,7 @@ module.exports = React.createClass
       search_results: []
 
   handle_title_change: (event) ->
-    @getCollection().get(@props.model.cid).set
+    @getModel().set
       title: event.target.value
 
   render: ->

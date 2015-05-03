@@ -77,9 +77,7 @@ gulp.task 'serve', ->
 
 gulp.task 'watch', ->
   gulp.watch "#{CONFIG.src.dir}/**/*.jade", ['dev:html']
-  gulp.watch CONFIG.coffee.extensions.map (extension) ->
-    "#{CONFIG.src.dir}/#{CONFIG.coffee.dir}/**/*.#{extension}"
-  , ['dev:js']
+  gulp.watch CONFIG.coffee.extensions.map( (ext) -> "#{CONFIG.src.dir}/#{CONFIG.coffee.dir}/**/*#{ext}" ), ['dev:js']
   gulp.watch "#{CONFIG.src.dir}/#{CONFIG.scss.dir}/**/*.scss", ['dev:css']
 
 gulp.task 'default', ['dev:build', 'serve', 'watch']

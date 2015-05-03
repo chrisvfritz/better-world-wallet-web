@@ -26,11 +26,10 @@ module.exports = React.createClass
     @props.collection.models
       .map (collection) ->
         parseFloat(collection.attributes.donation || 0)
-      .reduce (a,b) -> a + b
+      .reduce ( (a,b) -> a + b ), 0
       .toFixed 2
 
   render: ->
-    window.arst = @getCollection()
     <Row>
       <Col md=6>
         <div className='card'>

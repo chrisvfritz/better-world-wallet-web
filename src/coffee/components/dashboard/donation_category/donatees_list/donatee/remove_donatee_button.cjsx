@@ -8,7 +8,7 @@ module.exports = React.createClass
   mixins: [ BackboneMixin ]
 
   handle_click: ->
-    @getCollection().get(@getModel().cid).destroy()
+    @getModel().destroy()
 
   render: ->
     <button

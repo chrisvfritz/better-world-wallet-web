@@ -13,4 +13,6 @@ donation_categories = new DonationCategories [
     title: 'General'
 ]
 
+window.arst = donation_categories
+
 React.render <Dashboard collection={donation_categories}/>, document.getElementById('dashboard')
