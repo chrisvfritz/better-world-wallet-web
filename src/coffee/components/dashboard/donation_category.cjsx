@@ -23,7 +23,7 @@ module.exports = React.createClass
 
   update_search: (new_query, new_results=[]) ->
     @setState
-      search_query: new_query || @state.search_query
+      search_query: if new_query != null then new_query else @state.search_query
       search_results: new_results
 
   clear_search: ->
