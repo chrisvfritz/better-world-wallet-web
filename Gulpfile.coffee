@@ -109,7 +109,7 @@ gulp.task 'prod:css', ->
 
 gulp.task 'prod:build', ['prod:html', 'prod:js', 'prod:css']
 
-gulp.task 'deploy', ->
+gulp.task 'deploy', ['prod:build'], ->
   gulp.src "#{CONFIG.prod.dir}/**/*"
     .pipe gh_pages()
 
