@@ -124,8 +124,8 @@ gulp.task 'commit', ['deploy'], ->
     .pipe git.add
       args: '-A'
     .pipe git.commit ARGV.m
-    .pipe git.push 'origin', 'master', (error) ->
-      throw error if error
+  git.push 'origin', 'master', (error) ->
+    throw error if error
 
 # --------------
 # Helper Methods
