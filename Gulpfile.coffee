@@ -8,6 +8,8 @@ minify_css = require 'gulp-minify-css'
 gutil      = require 'gulp-util'
 webserver  = require 'gulp-webserver'
 gh_pages   = require 'gulp-gh-pages'
+git        = require 'gulp-git'
+ARGV       = require('yargs').argv
 
 # -------------
 # Configuration
@@ -112,6 +114,16 @@ gulp.task 'prod:build', ['prod:html', 'prod:js', 'prod:css']
 gulp.task 'deploy', ['prod:build'], ->
   gulp.src "#{CONFIG.prod.dir}/**/*"
     .pipe gh_pages()
+
+# ---
+# Git
+# ---
+
+gulp.task 'commit', ['deploy'], ->
+  gulp.src '.'
+    .pipe git.add
+      args: '-A'
+    .pipe git.commit ARGV.m
 
 # --------------
 # Helper Methods
