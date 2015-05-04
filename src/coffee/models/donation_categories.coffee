@@ -15,7 +15,7 @@ class DonationCategories extends Backbone.Collection
   # fetch: (options) ->
   #   Backbone.Collection.prototype.fetch.call(this, _.extend({
   #     data:
-  #       user_id: # Id of currently logged in user
+  #       user_id: # id of currently logged in user
   #     , options
 
 module.exports = DonationCategories
