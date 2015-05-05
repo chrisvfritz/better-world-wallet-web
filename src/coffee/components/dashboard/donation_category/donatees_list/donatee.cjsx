@@ -19,15 +19,14 @@ module.exports = React.createClass
   render: ->
     <tr>
       <td width='100%'>
-        <a href="https://www.youtube.com/channel/#{ @props.model.attributes.id }" target='_blank'>
-          { @props.model.attributes.title }
+        <a href="https://www.youtube.com/channel/#{ @getModel().get 'id' }" target='_blank'>
+          { @getModel().get 'title' }
         </a>
       </td>
       <td>
         <PercentageInput
-          default_percent = { @visible_default_percent()      }
-          percent         = { @props.model.attributes.percent }
-          max             = { @max()                          }
+          default_percent = { @visible_default_percent() }
+          max             = { @max()                     }
         />
       </td>
       <td>

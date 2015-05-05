@@ -15,23 +15,18 @@ module.exports = React.createClass
   mixins: [ BackboneMixin ]
 
   render: ->
-    sorted_donatees = @props.collection.models.sort (a,b) ->
-      title_a = a.attributes.title.toLowerCase()
-      title_b = b.attributes.title.toLowerCase()
-      return -1 if title_a < title_b
-      return  1 if title_a > title_b
-      0
+    sorted_donatees = @getCollection().sort()
 
     <div className='donatees_list'>
       <Table striped=true>
         <tbody>
           {
             if sorted_donatees.length > 0
-              for donatee in sorted_donatees
+              for donatee in sorted_donatees.models
                 <Donatee
-                  key      = { donatee.cid     }
-                  model    = { donatee         }
-                  donation = { @props.donation }
+                  key      = { donatee.cid                }
+                  model    = { donatee                    }
+                  donation = { @getModel().get 'donation' }
                 />
             else
               <tr>

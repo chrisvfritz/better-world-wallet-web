@@ -21,9 +21,9 @@ module.exports = React.createClass
 
   render: ->
     <Input
-      onChange    = { @handle_change         }
-      value       = { @props.percent         }
-      placeholder = { @props.default_percent }
+      onChange    = { @handle_change            }
+      value       = { @getModel().get 'percent' }
+      placeholder = { @props.default_percent    }
       className   = 'donation_perentage'
       type        = 'text'
       addonAfter  = '%'

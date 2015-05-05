@@ -17,12 +17,13 @@ module.exports = React.createClass
         donation: value
 
   render: ->
-    amount = if @props.amount == 0 then '' else @props.amount
+    donation = @getModel().get('donation')
+    donation = '' if donation == 0
 
     <span className='form-inline'>
       <Input
         onChange    = { @handle_change }
-        value       = { amount         }
+        value       = { donation       }
         addonBefore = '$'
         bsSize      = 'medium'
         type        = 'text'

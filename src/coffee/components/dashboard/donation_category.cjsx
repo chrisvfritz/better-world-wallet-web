@@ -41,7 +41,7 @@ module.exports = React.createClass
       <Row>
         <Col md=6>
           <input
-            value     = { @props.model.attributes.title }
+            value     = { @getModel().get 'title' }
             onChange  = { @handle_title_change }
             className = 'donation_category_title'
             type      = 'text'
@@ -60,14 +60,10 @@ module.exports = React.createClass
         clear_search_callback = { @clear_search         }
       />
       <h4 className='donation_amount_heading'>
-        Donating
-        <DonationAmountInput
-          amount = { @props.model.attributes.donation }
-        />
-        to
+        Donating <DonationAmountInput/> to
       </h4>
       <DonateesList
-        collection = { @props.model.attributes.donatees }
-        donation   = { @props.model.attributes.donation }
+        collection = { @getModel().get 'donatees' }
+        donation   = { @getModel().get 'donation' }
       />
     </div>

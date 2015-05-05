@@ -9,4 +9,7 @@ class Donatees extends Backbone.Collection
   model: Donatee
   sync: Backbone.localforage.sync 'Donatees'
 
+  comparator: (donatee) ->
+    donatee.get 'title'
+
 module.exports = Donatees

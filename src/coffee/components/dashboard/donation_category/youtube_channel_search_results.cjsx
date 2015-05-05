@@ -16,7 +16,7 @@ module.exports = React.createClass
   mixins: [ BackboneMixin ]
 
   all_donatee_ids: ->
-    _compact _flatten( @getCollection().models.map( (d) -> d.attributes.donatees.map (d) -> d.id ) )
+    _compact _flatten( @getCollection().map( (d) -> d.get('donatees').map (d) -> d.id ) )
 
   render: ->
     <div className='search_results_container'>

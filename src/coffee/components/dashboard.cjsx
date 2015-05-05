@@ -47,7 +47,7 @@ module.exports = React.createClass
           </div>
         </div>
         {
-          @props.collection.models.map (category) ->
+          @getCollection().map (category) ->
             <DonationCategory
               key   = { category.cid }
               model = { category     }
