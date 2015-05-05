@@ -13,7 +13,7 @@ module.exports = React.createClass
 
   handle_click: ->
     unless @is_already_added()
-      @getModel().attributes.donatees.add new DonateeModel(@props.channel_props)
+      @getModel().get('donatees').add new DonateeModel(@props.channel_props)
       @props.click_callback()
 
   prevent_propagation: (event) ->
