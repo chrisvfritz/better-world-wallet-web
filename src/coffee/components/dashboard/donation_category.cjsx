@@ -32,8 +32,18 @@ module.exports = React.createClass
   # ---------
 
   getInitialState: ->
+    mobile: false
     search_query: ''
     search_results: []
+
+  componentWillMount: ->
+    @check_for_mobile()
+
+  componentDidMount: ->
+    window.addEventListener 'resize', @check_for_mobile
+
+  componentWillUnmount: ->
+    window.removeEventListener 'resize', @check_for_mobile
 
   # -------
   # ACTIONS
@@ -65,7 +75,7 @@ module.exports = React.createClass
           <input
             value     = { @getModel().get 'title' }
             onChange  = { @handle_title_change    }
-            styles    = { styles.title            }
+            styles    = {[ styles.title.base, @state.mobile && styles.title.mobile ]}
             type      = 'text'
           />
         </Col>
@@ -98,6 +108,14 @@ module.exports = React.createClass
       />
     </Card>
 
+  # -------
+  # HELPERS
+  # -------
+
+  check_for_mobile: ->
+    @setState
+      mobile: document.body.clientWidth < 992
+
 # ------
 # STYLES
 # ------
@@ -105,15 +123,21 @@ module.exports = React.createClass
 styles = StyleSheet.create
 
   title:
-    width: '100%'
-    boxShadow: 'none'
-    border: 'none'
-    padding: 0
-    fontSize: 24
-    color: '#333'
-    lineHeight: '34px'
-    fontWeight: 500
-    outline: 'none'
+
+    base:
+      width: '100%'
+      boxShadow: 'none'
+      border: 'none'
+      padding: 0
+      fontSize: 24
+      color: '#333'
+      lineHeight: '34px'
+      fontWeight: 500
+      outline: 'none'
+      borderBottom: '1px dashed #ccc'
+
+    mobile:
+      marginBottom: 10
 
   donation_heading:
     margin: '10px 0'
