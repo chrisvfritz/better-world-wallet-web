@@ -59,13 +59,27 @@ module.exports = React.createClass
       </Col>
       <Col md=6>
         <Card>
-          <h3>Welcome!</h3>
-          <p>This is Better World Wallet!</p>
+          <h3 styles={ styles.welcome.heading }>
+            Welcome!
+          </h3>
+          <p styles={ styles.welcome.paragraphs.last }>
+            This is Better World Wallet!
+          </p>
         </Card>
       </Col>
     </Row>
 
 styles = StyleSheet.create
+
+  welcome:
+
+    heading:
+      marginTop: 0
+
+    paragraphs:
+
+      last:
+        marginBottom: 0
 
   total:
 
