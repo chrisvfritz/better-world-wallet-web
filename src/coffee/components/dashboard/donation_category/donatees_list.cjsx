@@ -1,6 +1,7 @@
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
+StyleSheet    = require 'react-style'
 
 # Bootstrap
 Table = require 'react-bootstrap/lib/Table'
@@ -14,16 +15,12 @@ module.exports = React.createClass
 
   mixins: [ BackboneMixin ]
 
-  table_style:
-    marginLeft: -3
-    marginBottom: 0
-
   render: ->
     sorted_donatees = @getCollection().sort()
 
     <div>
       <Table
-        style   = { @table_style }
+        styles  = { styles.table }
         striped = true
       >
         <tbody>
@@ -44,3 +41,8 @@ module.exports = React.createClass
       </Table>
     </div>
 
+styles = StyleSheet.create
+
+  table:
+    marginLeft: -3
+    marginBottom: 0

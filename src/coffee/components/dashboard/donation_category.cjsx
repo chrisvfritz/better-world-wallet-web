@@ -45,7 +45,7 @@ module.exports = React.createClass
           <input
             value     = { @getModel().get 'title' }
             onChange  = { @handle_title_change    }
-            style     = { styles.title            }
+            styles    = { styles.title            }
             type      = 'text'
           />
         </Col>

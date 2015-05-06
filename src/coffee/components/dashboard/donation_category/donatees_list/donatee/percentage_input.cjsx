@@ -1,6 +1,7 @@
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
+StyleSheet    = require 'react-style'
 
 # Bootstrap
 Input = require 'react-bootstrap/lib/Input'
@@ -19,17 +20,19 @@ module.exports = React.createClass
       @getModel().set
         percent: value
 
-  input_style:
-    width: 45
-
   render: ->
     <Input
       onChange    = { @handle_change            }
       value       = { @getModel().get 'percent' }
       placeholder = { @props.default_percent    }
-      style       = { @input_style              }
+      styles      = { style.input         }
       type        = 'text'
       addonAfter  = '%'
       bsSize      = 'small'
       standalone  = true
     />
+
+styles = StyleSheet.create
+
+  input:
+    width: 45
