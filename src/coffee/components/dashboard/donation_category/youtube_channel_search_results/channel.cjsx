@@ -1,6 +1,7 @@
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
+StyleSheet    = require 'react-style'
 _compact      = require 'lodash/array/compact'
 
 # Models
@@ -26,18 +27,15 @@ module.exports = React.createClass
     @props.channel_props.id in @props.donatee_ids
 
   render: ->
-    classes = _compact([
-      'added' if @is_already_added()
-    ]).join ' '
-
     <tr
-      onClick   = { @handle_click }
-      className = { classes       }
+      onClick = { @handle_click }
+      styles  = {[ styles.row.base, @is_already_added() && styles.row.added ]}
     >
       <td width=30>
         <img
-          src = { @props.channel_props.thumbnail }
-          alt = 'Thumbnail'
+          styles = { styles.thumbnail               }
+          src    = { @props.channel_props.thumbnail }
+          alt    = 'Thumbnail'
         />
       </td>
       <td>
@@ -58,3 +56,18 @@ module.exports = React.createClass
         }
       </td>
     </tr>
+
+styles = StyleSheet.create
+
+  row:
+
+    base:
+      cursor: 'pointer'
+
+    added:
+      cursor: 'default'
+      background: '#DDFFE4'
+      opacity: 0.4
+
+  thumbnail:
+    width: '30px'

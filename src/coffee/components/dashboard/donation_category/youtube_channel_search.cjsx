@@ -51,6 +51,7 @@ module.exports = React.createClass
                         click_callback = { @props.clear_search_callback }
                       />
                     }
+      standalone  = true
       placeholder = 'Add a new channel...'
       type        = 'text'
     />

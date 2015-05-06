@@ -1,12 +1,14 @@
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
+StyleSheet    = require 'react-style'
 
 # Bootstrap
 Row = require 'react-bootstrap/lib/Row'
 Col = require 'react-bootstrap/lib/Col'
 
 # Components
+Card                        = require 'components/shared/card'
 YoutubeChannelSearch        = require './donation_category/youtube_channel_search'
 YoutubeChannelSearchResults = require './donation_category/youtube_channel_search_results'
 DonationAmountInput         = require './donation_category/donation_amount_input'
@@ -37,13 +39,13 @@ module.exports = React.createClass
 
   render: ->
 
-    <div className='donation_category card'>
+    <Card>
       <Row>
         <Col md=6>
           <input
             value     = { @getModel().get 'title' }
-            onChange  = { @handle_title_change }
-            className = 'donation_category_title'
+            onChange  = { @handle_title_change    }
+            style     = { styles.title            }
             type      = 'text'
           />
         </Col>
@@ -59,11 +61,52 @@ module.exports = React.createClass
         channels              = { @state.search_results }
         clear_search_callback = { @clear_search         }
       />
-      <h4 className='donation_amount_heading'>
-        Donating <DonationAmountInput/> to
+      <h4 styles={styles.donation_heading}>
+        <span styles={[ styles.donation_text.base, styles.donation_text.first ]}>
+          Donating
+        </span>
+        <span styles={[ styles.donation_text.base, styles.donation_text.input ]}>
+          <DonationAmountInput/>
+        </span>
+        <span styles={[ styles.donation_text.base, styles.donation_text.last ]}>
+          to
+        </span>
       </h4>
       <DonateesList
         collection = { @getModel().get 'donatees' }
         donation   = { @getModel().get 'donation' }
       />
-    </div>
+    </Card>
+
+styles = StyleSheet.create
+
+  title:
+    width: '100%'
+    boxShadow: 'none'
+    border: 'none'
+    padding: 0
+    fontSize: 24
+    color: '#333'
+    lineHeight: '34px'
+    fontWeight: 500
+    outline: 'none'
+
+  donation_heading:
+    margin: '10px 0'
+    display: 'tabln'
+
+  donation_text:
+
+    base:
+      display: 'table-cell'
+      verticalAlign: 'middle'
+      padding: '0 4px'
+
+    first:
+      paddingLeft: 0
+
+    last:
+      paddingRight: 0
+
+    input:
+      width: '100%'

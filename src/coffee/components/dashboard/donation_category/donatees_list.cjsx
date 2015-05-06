@@ -14,11 +14,18 @@ module.exports = React.createClass
 
   mixins: [ BackboneMixin ]
 
+  table_style:
+    marginLeft: -3
+    marginBottom: 0
+
   render: ->
     sorted_donatees = @getCollection().sort()
 
-    <div className='donatees_list'>
-      <Table striped=true>
+    <div>
+      <Table
+        style   = { @table_style }
+        striped = true
+      >
         <tbody>
           {
             if sorted_donatees.length > 0
@@ -36,3 +43,4 @@ module.exports = React.createClass
         </tbody>
       </Table>
     </div>
+

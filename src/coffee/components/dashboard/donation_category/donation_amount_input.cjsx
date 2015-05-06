@@ -20,13 +20,12 @@ module.exports = React.createClass
     donation = @getModel().get('donation')
     donation = '' if donation == 0
 
-    <span className='form-inline'>
-      <Input
-        onChange    = { @handle_change }
-        value       = { donation       }
-        addonBefore = '$'
-        bsSize      = 'medium'
-        type        = 'text'
-        placeholder = '0'
-      />
-    </span>
+    <Input
+      onChange    = { @handle_change }
+      value       = { donation       }
+      standalone  = { true  }
+      addonBefore = '$'
+      bsSize      = 'medium'
+      type        = 'text'
+      placeholder = '0'
+    />

@@ -1,6 +1,7 @@
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
+StyleSheet    = require 'react-style'
 _compact      = require 'lodash/array/compact'
 _flatten      = require 'lodash/array/flatten'
 
@@ -19,8 +20,8 @@ module.exports = React.createClass
     _compact _flatten @getCollection().map (c) -> c.get('donatees').map (d) -> d.id
 
   render: ->
-    <div className='search_results_container'>
-      <Table hover=true className='youtube_channel_search_results'>
+    <div styles={ styles.container }>
+      <Table hover=true styles={ styles.table }>
         <tbody>
           {
             for channel in @props.channels
@@ -34,3 +35,16 @@ module.exports = React.createClass
         </tbody>
       </Table>
     </div>
+
+styles = StyleSheet.create
+
+  container:
+    position: 'relative'
+
+  table:
+    position: 'absolute'
+    background: '#FCFFFA'
+    borderBottomLeftRadius: 3
+    borderBottomRightRadius: 3
+    boxShadow: '0 2px 3px rgba(0,0,0,0.2)'
+    zIndex: 3;

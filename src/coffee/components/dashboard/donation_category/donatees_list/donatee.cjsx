@@ -1,6 +1,7 @@
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
+StyleSheet    = require 'react-style'
 Accounting    = require 'accounting'
 _compact      = require 'lodash/array/compact'
 
@@ -13,26 +14,29 @@ module.exports = React.createClass
 
   mixins: [ BackboneMixin ]
 
+  getInitialState: ->
+    was_just_added: false
+
   componentDidMount: ->
     @highlight()
 
   render: ->
-    <tr>
-      <td width='100%'>
+    <tr styles={[ styles.row.base, @state.was_just_added and styles.row.active ]}>
+      <td styles={ styles.cell }>
         <a href="https://www.youtube.com/channel/#{ @getModel().get 'id' }" target='_blank'>
           { @getModel().get 'title' }
         </a>
       </td>
-      <td>
+      <td styles={ styles.cell }>
         <PercentageInput
           default_percent = { @visible_default_percent() }
           max             = { @max()                     }
         />
       </td>
-      <td>
+      <td styles={ styles.cell }>
         { Accounting.formatMoney @money() }
       </td>
-      <td>
+      <td styles={ styles.cell }>
         <RemoveDonateeButton
           remove_callback = { @remove_donatee }
         />
@@ -40,11 +44,12 @@ module.exports = React.createClass
     </tr>
 
   highlight: ->
-    node = React.findDOMNode(@)
-    setTimeout ->
-      node.classList.add 'just_added'
-      setTimeout ->
-        node.classList.remove 'just_added'
+    setTimeout =>
+      @setState
+        was_just_added: true
+      setTimeout =>
+        @setState
+          was_just_added: false
       , 2000
     , 1
 
@@ -70,3 +75,19 @@ module.exports = React.createClass
 
   defined_percents: ->
     _compact @getCollection().models.map( (d) -> parseInt(d.attributes.percent) )
+
+styles = StyleSheet.create
+
+  row:
+
+    base:
+      borderLeft: '3px solid white'
+      transition: 'border-left 2s'
+
+    active:
+      borderLeft: '3px solid #ADEAC7'
+      transition: 'border-left 1s'
+
+  cell:
+    verticalAlign: 'middle'
+    width: '100%'

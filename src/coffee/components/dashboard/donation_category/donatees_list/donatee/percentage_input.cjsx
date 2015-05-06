@@ -15,17 +15,21 @@ module.exports = React.createClass
 
   handle_change: (event) ->
     value = event.target.value
-    unless value > @props.max or !/^\d{0,3}$/.test(value)
+    unless value > @props.max or not /^\d{0,3}$/.test(value)
       @getModel().set
         percent: value
+
+  input_style:
+    width: 45
 
   render: ->
     <Input
       onChange    = { @handle_change            }
       value       = { @getModel().get 'percent' }
       placeholder = { @props.default_percent    }
-      className   = 'donation_perentage'
+      style       = { @input_style              }
       type        = 'text'
       addonAfter  = '%'
       bsSize      = 'small'
+      standalone  = true
     />

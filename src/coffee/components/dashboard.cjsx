@@ -1,6 +1,7 @@
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
+StyleSheet    = require 'react-style'
 
 # Models
 DonationCategoryModel = require 'models/donation_category'
@@ -12,6 +13,7 @@ Button    = require 'react-bootstrap/lib/Button'
 Glyphicon = require 'react-bootstrap/lib/Glyphicon'
 
 # Components
+Card             = require 'components/shared/card'
 DonationCategory = require './dashboard/donation_category'
 
 module.exports = React.createClass
@@ -32,20 +34,21 @@ module.exports = React.createClass
   render: ->
     <Row>
       <Col md=6>
-        <div className='card'>
-          <div id='total_donations'>
-            <h2>
+        <Card>
+          <div styles={ styles.total.container }>
+            <h2 styles={[ styles.total.text.base, styles.total.text.first]}>
               Total Donations: ${ @donation_total() }
             </h2>
             <Button
-              onClick = { @add_new_category }
+              onClick = { @add_new_category      }
+              styles  = { styles.total.text.base }
               bsSize  = 'medium'
               bsStyle = 'primary'
             >
               <Glyphicon glyph='plus'/>
             </Button>
           </div>
-        </div>
+        </Card>
         {
           @getCollection().map (category) ->
             <DonationCategory
@@ -55,9 +58,26 @@ module.exports = React.createClass
         }
       </Col>
       <Col md=6>
-        <div className='card'>
+        <Card>
           <h3>Welcome!</h3>
           <p>This is Better World Wallet!</p>
-        </div>
+        </Card>
       </Col>
     </Row>
+
+styles = StyleSheet.create
+
+  total:
+
+    container:
+      display: 'table'
+
+    text:
+
+      base:
+        display: 'table-cell'
+        lineHeight: 1
+        verticalAlign: 'middle'
+
+      first:
+        width: '100%'
