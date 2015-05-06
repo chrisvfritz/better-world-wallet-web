@@ -1,3 +1,7 @@
+# ---------
+# IMPORTS
+# ---------
+
 # Vendor
 React     = require 'react'
 _debounce = require 'lodash/function/debounce'
@@ -11,8 +15,16 @@ Input = require 'react-bootstrap/lib/Input'
 # Components
 ClearSearchButton = require './youtube_channel_search/clear_search_button'
 
+# ---------
+# COMPONENT
+# ---------
+
 module.exports = React.createClass
   displayName: 'YoutubeChannelSearch'
+
+  # ---------
+  # LIFECYCLE
+  # ---------
 
   componentWillReceiveProps: (next_props) ->
     @should_focus = @props.query.length > 0 and next_props.query.length == 0
@@ -37,10 +49,18 @@ module.exports = React.createClass
   componentDidUpdate: ->
     React.findDOMNode(@).getElementsByTagName('input')[0].focus() if @should_focus
 
+  # -------
+  # ACTIONS
+  # -------
+
   handle_change: (event) ->
     query = event.target.value
     @props.search_callback query
     @delayed_search        query
+
+  # ------
+  # RENDER
+  # ------
 
   render: ->
     <Input

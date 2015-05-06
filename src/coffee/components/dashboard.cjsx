@@ -1,3 +1,7 @@
+# -------
+# IMPORTS
+# -------
+
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
@@ -16,20 +20,18 @@ Glyphicon = require 'react-bootstrap/lib/Glyphicon'
 Card             = require 'components/shared/card'
 DonationCategory = require './dashboard/donation_category'
 
+# ---------
+# COMPONENT
+# ---------
+
 module.exports = React.createClass
   displayName: 'Dashboard'
 
   mixins: [ BackboneMixin ]
 
-  add_new_category: ->
-    @getCollection().add new DonationCategoryModel()
-
-  donation_total: ->
-    @props.collection.models
-      .map (collection) ->
-        parseFloat(collection.attributes.donation || 0)
-      .reduce ( (a,b) -> a + b ), 0
-      .toFixed 2
+  # ------
+  # RENDER
+  # ------
 
   render: ->
     <Row>
@@ -68,6 +70,24 @@ module.exports = React.createClass
         </Card>
       </Col>
     </Row>
+
+  # -------
+  # HELPERS
+  # -------
+
+  add_new_category: ->
+    @getCollection().add new DonationCategoryModel()
+
+  donation_total: ->
+    @props.collection.models
+      .map (collection) ->
+        parseFloat(collection.attributes.donation || 0)
+      .reduce ( (a,b) -> a + b ), 0
+      .toFixed 2
+
+# ------
+# STYLES
+# ------
 
 styles = StyleSheet.create
 

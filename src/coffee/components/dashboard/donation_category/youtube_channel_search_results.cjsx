@@ -1,3 +1,7 @@
+# -------
+# IMPORTS
+# -------
+
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
@@ -11,13 +15,18 @@ Table = require 'react-bootstrap/lib/Table'
 # Components
 Channel = require './youtube_channel_search_results/channel'
 
+# ---------
+# COMPONENT
+# ---------
+
 module.exports = React.createClass
   displayName: 'YoutubeChannelSearchResults'
 
   mixins: [ BackboneMixin ]
 
-  all_donatee_ids: ->
-    _compact _flatten @getCollection().map (c) -> c.get('donatees').map (d) -> d.id
+  # ------
+  # RENDER
+  # ------
 
   render: ->
     <div styles={ styles.container }>
@@ -35,6 +44,17 @@ module.exports = React.createClass
         </tbody>
       </Table>
     </div>
+
+  # -------
+  # HELPERS
+  # -------
+
+  all_donatee_ids: ->
+    _compact _flatten @getCollection().map (c) -> c.get('donatees').map (d) -> d.id
+
+# ------
+# STYLES
+# ------
 
 styles = StyleSheet.create
 

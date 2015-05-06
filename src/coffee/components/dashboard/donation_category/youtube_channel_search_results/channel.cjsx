@@ -1,3 +1,7 @@
+# -------
+# IMPORTS
+# -------
+
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
@@ -7,24 +11,27 @@ _compact      = require 'lodash/array/compact'
 # Models
 DonateeModel = require 'models/donatee'
 
+# ---------
+# COMPONENT
+# ---------
+
 module.exports = React.createClass
   displayName: 'Channel'
 
   mixins: [ BackboneMixin ]
+
+  # -------
+  # ACTIONS
+  # -------
 
   handle_click: ->
     unless @is_already_added()
       @getModel().get('donatees').add new DonateeModel(@props.channel_props)
       @props.click_callback()
 
-  prevent_propagation: (event) ->
-    if event.stopPropagation
-      event.stopPropagation()
-    else if window.event
-      window.event.cancelBubble = true
-
-  is_already_added: ->
-    @props.channel_props.id in @props.donatee_ids
+  # ------
+  # RENDER
+  # ------
 
   render: ->
     <tr
@@ -56,6 +63,23 @@ module.exports = React.createClass
         }
       </td>
     </tr>
+
+  # -------
+  # HELPERS
+  # -------
+
+  prevent_propagation: (event) ->
+    if event.stopPropagation
+      event.stopPropagation()
+    else if window.event
+      window.event.cancelBubble = true
+
+  is_already_added: ->
+    @props.channel_props.id in @props.donatee_ids
+
+# ------
+# STYLES
+# ------
 
 styles = StyleSheet.create
 

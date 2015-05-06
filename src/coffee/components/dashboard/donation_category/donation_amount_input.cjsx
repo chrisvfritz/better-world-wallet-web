@@ -1,3 +1,7 @@
+# -------
+# IMPORTS
+# -------
+
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
@@ -5,16 +9,28 @@ BackboneMixin = require 'backbone-react-component'
 # Bootstrap
 Input = require 'react-bootstrap/lib/Input'
 
+# ---------
+# COMPONENT
+# ---------
+
 module.exports = React.createClass
   displayName: 'DonationAmountInput'
 
   mixins: [ BackboneMixin ]
+
+  # -------
+  # ACTIONS
+  # -------
 
   handle_change: (event) ->
     value = event.target.value
     unless value and isNaN(value) or parseInt(value) < 0 or !/^[\d,]*\.?\d{0,2}$/.test(value)
       @getModel().set
         donation: value
+
+  # ------
+  # RENDER
+  # ------
 
   render: ->
     donation = @getModel().get('donation')

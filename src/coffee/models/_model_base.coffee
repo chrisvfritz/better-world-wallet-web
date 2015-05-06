@@ -1,5 +1,13 @@
+# -------
+# IMPORTS
+# -------
+
 # Vendor
 Backbone = require 'backbone'
+
+# -----
+# MODEL
+# -----
 
 class ModelBase extends Backbone.Model
   set: (attrs) ->

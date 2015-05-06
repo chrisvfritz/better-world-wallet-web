@@ -1,3 +1,7 @@
+# -------
+# IMPORTS
+# -------
+
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
@@ -9,16 +13,28 @@ _compact      = require 'lodash/array/compact'
 RemoveDonateeButton = require './donatee/remove_donatee_button'
 PercentageInput     = require './donatee/percentage_input'
 
+# ---------
+# COMPONENT
+# ---------
+
 module.exports = React.createClass
   displayName: 'Donatee'
 
   mixins: [ BackboneMixin ]
+
+  # ---------
+  # LIFECYCLE
+  # ---------
 
   getInitialState: ->
     was_just_added: false
 
   componentDidMount: ->
     @highlight()
+
+  # ------
+  # RENDER
+  # ------
 
   render: ->
     <tr styles={[ styles.row.base, @state.was_just_added and styles.row.active ]}>
@@ -42,6 +58,10 @@ module.exports = React.createClass
         />
       </td>
     </tr>
+
+  # -------
+  # HELPERS
+  # -------
 
   highlight: ->
     setTimeout =>
@@ -75,6 +95,10 @@ module.exports = React.createClass
 
   defined_percents: ->
     _compact @getCollection().models.map( (d) -> parseInt(d.attributes.percent) )
+
+# ------
+# STYLES
+# ------
 
 styles = StyleSheet.create
 

@@ -1,3 +1,7 @@
+# -------
+# IMPORTS
+# -------
+
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
@@ -10,10 +14,18 @@ Table = require 'react-bootstrap/lib/Table'
 Donatee             = require './donatees_list/donatee'
 DonationAmountInput = require './donation_amount_input'
 
+# ---------
+# COMPONENT
+# ---------
+
 module.exports = React.createClass
   displayName: 'DonateesList'
 
   mixins: [ BackboneMixin ]
+
+  # ------
+  # RENDER
+  # ------
 
   render: ->
     sorted_donatees = @getCollection().sort()
@@ -40,6 +52,10 @@ module.exports = React.createClass
         </tbody>
       </Table>
     </div>
+
+# ------
+# STYLES
+# ------
 
 styles = StyleSheet.create
 

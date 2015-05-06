@@ -1,3 +1,7 @@
+# -------
+# IMPORTS
+# -------
+
 # Vendor
 Backbone             = require 'backbone'
 Backbone.localforage = require 'localforage-backbone'
@@ -5,6 +9,10 @@ Backbone.localforage = require 'localforage-backbone'
 # Models
 ModelBase = require './_model_base'
 Donatees  = require './donatees'
+
+# -----
+# MODEL
+# -----
 
 class DonationCategory extends ModelBase
   sync: Backbone.localforage.sync 'DonationCategory'

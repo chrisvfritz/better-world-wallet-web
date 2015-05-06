@@ -1,3 +1,7 @@
+# -------
+# IMPORTS
+# -------
+
 # Vendor
 Backbone             = require 'backbone'
 Backbone.localforage = require 'localforage-backbone'
@@ -5,12 +9,16 @@ Backbone.localforage = require 'localforage-backbone'
 # Models
 DonationCategory = require './donation_category'
 
+# ----------
+# COLLECTION
+# ----------
+
 class DonationCategories extends Backbone.Collection
   model: DonationCategory
   sync: Backbone.localforage.sync 'DonationCategories'
 
   # Eventually I'll want to fetch records from an API for a specific user with
-  # custom params and I may do so similar to below.
+  # custom params and I may do so similar to below:
 
   # fetch: (options) ->
   #   Backbone.Collection.prototype.fetch.call(this, _.extend({

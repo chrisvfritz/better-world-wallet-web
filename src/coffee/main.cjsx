@@ -1,3 +1,7 @@
+# -------
+# IMPORTS
+# -------
+
 # Vendor
 React = require 'react'
 
@@ -8,9 +12,17 @@ DonationCategory   = require 'models/donation_category'
 # Components
 Dashboard = require './components/dashboard'
 
+# ----------
+# INITIALIZE
+# ----------
+
 donation_categories = new DonationCategories [
   new DonationCategory
     title: 'General'
 ]
+
+# ------
+# RENDER
+# ------
 
 React.render <Dashboard collection={donation_categories}/>, document.getElementById('dashboard')

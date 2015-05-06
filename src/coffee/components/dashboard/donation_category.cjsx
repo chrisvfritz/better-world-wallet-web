@@ -1,3 +1,7 @@
+# -------
+# IMPORTS
+# -------
+
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
@@ -14,14 +18,26 @@ YoutubeChannelSearchResults = require './donation_category/youtube_channel_searc
 DonationAmountInput         = require './donation_category/donation_amount_input'
 DonateesList                = require './donation_category/donatees_list'
 
+# ---------
+# COMPONENT
+# ---------
+
 module.exports = React.createClass
   displayName: 'DonationCategory'
 
   mixins: [ BackboneMixin ]
 
+  # ---------
+  # LIFECYCLE
+  # ---------
+
   getInitialState: ->
     search_query: ''
     search_results: []
+
+  # -------
+  # ACTIONS
+  # -------
 
   update_search: (new_query, new_results=[]) ->
     @setState
@@ -36,6 +52,10 @@ module.exports = React.createClass
   handle_title_change: (event) ->
     @getModel().set
       title: event.target.value
+
+  # ------
+  # RENDER
+  # ------
 
   render: ->
 
@@ -77,6 +97,10 @@ module.exports = React.createClass
         donation   = { @getModel().get 'donation' }
       />
     </Card>
+
+# ------
+# STYLES
+# ------
 
 styles = StyleSheet.create
 

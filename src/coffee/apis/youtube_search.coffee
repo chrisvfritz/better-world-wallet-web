@@ -1,4 +1,13 @@
+# -------
+# IMPORTS
+# -------
+
+# Vendor
 Request = require 'superagent'
+
+# -------
+# WRAPPER
+# -------
 
 class YoutubeSearch
 

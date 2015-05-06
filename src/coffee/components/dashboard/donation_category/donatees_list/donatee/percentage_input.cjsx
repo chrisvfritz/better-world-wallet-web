@@ -1,3 +1,7 @@
+# -------
+# IMPORTS
+# -------
+
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
@@ -9,16 +13,28 @@ Input = require 'react-bootstrap/lib/Input'
 # Components
 RemoveDonateeButton = require './remove_donatee_button'
 
+# ---------
+# COMPONENT
+# ---------
+
 module.exports = React.createClass
   displayName: 'PercentageInput'
 
   mixins: [ BackboneMixin ]
+
+  # -------
+  # ACTIONS
+  # -------
 
   handle_change: (event) ->
     value = event.target.value
     unless value > @props.max or not /^\d{0,3}$/.test(value)
       @getModel().set
         percent: value
+
+  # ------
+  # RENDER
+  # ------
 
   render: ->
     <Input
@@ -31,6 +47,10 @@ module.exports = React.createClass
       bsSize      = 'small'
       standalone  = true
     />
+
+# ------
+# STYLES
+# ------
 
 styles = StyleSheet.create
 

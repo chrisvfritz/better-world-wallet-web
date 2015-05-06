@@ -1,9 +1,17 @@
+# -------
+# IMPORTS
+# -------
+
 # Vendor
 Backbone             = require 'backbone'
 Backbone.localforage = require 'localforage-backbone'
 
 # Models
 Donatee = require './donatee'
+
+# ----------
+# COLLECTION
+# ----------
 
 class Donatees extends Backbone.Collection
   model: Donatee

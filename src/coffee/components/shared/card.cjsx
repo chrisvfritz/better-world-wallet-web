@@ -1,14 +1,30 @@
+# -------
+# IMPORTS
+# -------
+
 # Vendor
 React      = require 'react'
 StyleSheet = require 'react-style'
 
+# ---------
+# COMPONENT
+# ---------
+
 module.exports = React.createClass
   displayName: 'Card'
+
+  # ------
+  # RENDER
+  # ------
 
   render: ->
     <div styles={ styles.card }>
       { @props.children }
     </div>
+
+# ------
+# STYLES
+# ------
 
 styles = StyleSheet.create
 
