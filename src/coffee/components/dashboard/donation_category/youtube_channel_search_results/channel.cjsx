@@ -87,6 +87,7 @@ styles = StyleSheet.create
 
     base:
       cursor: 'pointer'
+      minHeight: 47
 
     added:
       cursor: 'default'

@@ -18,7 +18,11 @@ class YoutubeSearch
     Request
       .get "https://www.googleapis.com/youtube/v3/search?#{@params 'channel', options}"
       .end (error, response) ->
-        callback(response.body)
+        if error
+          alert 'Having trouble reaching YouTube. Are you connected to the Internet?'
+        else
+          callback(response.body)
+
 
   params: (type, options) ->
     params =

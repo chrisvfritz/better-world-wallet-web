@@ -79,9 +79,9 @@ module.exports = React.createClass
     @getCollection().add new DonationCategoryModel()
 
   donation_total: ->
-    @props.collection.models
-      .map (collection) ->
-        parseFloat(collection.attributes.donation || 0)
+    @getCollection()
+      .map (category) ->
+        parseFloat(category.attributes.donation || 0)
       .reduce ( (a,b) -> a + b ), 0
       .toFixed 2
 
