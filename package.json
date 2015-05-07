@@ -11,6 +11,7 @@
     "bootstrap-sass": "^3.3.4",
     "coffee-reactify": "^3.0.0",
     "coffee-script": "^1.9.2",
+    "fastclick": "^1.0.6",
     "gulp": "^3.8.11",
     "gulp-browserify": "^0.5.1",
     "gulp-cjsx": "^3.0.0",

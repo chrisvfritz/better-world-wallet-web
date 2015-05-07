@@ -3,7 +3,8 @@
 # -------
 
 # Vendor
-React = require 'react'
+React            = require 'react'
+attach_fastclick = require 'fastclick'
 
 # Models
 DonationCategories = require 'models/donation_categories'
@@ -15,6 +16,8 @@ Dashboard = require './components/dashboard'
 # ----------
 # INITIALIZE
 # ----------
+
+attach_fastclick document.body
 
 donation_categories = new DonationCategories [
   new DonationCategory
