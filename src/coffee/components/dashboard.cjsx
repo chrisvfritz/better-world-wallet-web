@@ -39,7 +39,7 @@ module.exports = React.createClass
         <Card>
           <div styles={ styles.total.container }>
             <h2 styles={[ styles.total.text.base, styles.total.text.first]}>
-              Total Donations: ${ @donation_total() }
+              Total: ${ @donation_total() }
             </h2>
             <Button
               onClick = { @add_new_category      }
