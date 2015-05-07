@@ -1,6 +1,7 @@
 gulp       = require 'gulp'
 browserify = require 'gulp-browserify'
 uglify     = require 'gulp-uglify'
+gzip       = require 'gulp-gzip'
 rename     = require 'gulp-rename'
 jade       = require 'gulp-jade'
 sass       = require 'gulp-sass'
@@ -95,6 +96,7 @@ gulp.task 'default', ['dev:build', 'serve', 'watch']
 gulp.task 'prod:html', ->
   gulp.src "#{CONFIG.src.dir}/*.jade"
     .pipe handle_errors jade()
+    .pipe gzip()
     .pipe gulp.dest CONFIG.prod.dir
 
 gulp.task 'prod:js', ->
@@ -105,16 +107,19 @@ gulp.task 'prod:js', ->
       paths:      CONFIG.coffee.paths
     .pipe handle_errors uglify()
     .pipe rename "#{CONFIG.coffee.main.name}.js"
+    .pipe gzip()
     .pipe gulp.dest "#{CONFIG.prod.dir}/js"
 
 gulp.task 'prod:css', ->
   gulp.src "#{CONFIG.src.dir}/#{CONFIG.scss.dir}/#{CONFIG.scss.main.name}#{CONFIG.scss.main.extension}"
     .pipe handle_errors sass()
     .pipe handle_errors minify_css()
+    .pipe gzip()
     .pipe gulp.dest "#{CONFIG.prod.dir}/css"
 
 gulp.task 'prod:fonts', ->
   gulp.src "#{CONFIG.src.dir}/fonts/**/*.*"
+    .pipe gzip()
     .pipe gulp.dest "#{CONFIG.prod.dir}/fonts"
 
 gulp.task 'prod:build', ['prod:html', 'prod:js', 'prod:css', 'prod:fonts']
