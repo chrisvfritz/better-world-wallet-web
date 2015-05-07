@@ -1,5 +1,4 @@
+@import 'bootstrap/variables';
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
-
-body { background: #F9F7F5; }
-
-.input-group { width: 100%; }
+@import 'lib/base/layout';
+@import 'lib/hacks';
