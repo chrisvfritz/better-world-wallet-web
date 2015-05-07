@@ -8,6 +8,7 @@
     "accounting": "^0.4.1",
     "backbone": "^1.1.2",
     "backbone-react-component": "^0.8.1",
+    "bootstrap-sass": "^3.3.4",
     "coffee-reactify": "^3.0.0",
     "coffee-script": "^1.9.2",
     "gulp": "^3.8.11",

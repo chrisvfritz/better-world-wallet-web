@@ -3,7 +3,8 @@
 # -------
 
 # Vendor
-React = require 'React'
+React      = require 'React'
+StyleSheet = require 'react-style'
 
 # Bootstrap
 Button    = require 'react-bootstrap/lib/Button'
@@ -21,6 +22,18 @@ module.exports = React.createClass
   # ------
 
   render: ->
-    <Button onClick={ @props.click_callback }>
+    <Button
+      onClick = { @props.click_callback }
+      styles  = { styles.button         }
+    >
       <Glyphicon glyph='remove-circle'/>
     </Button>
+
+# ------
+# STYLES
+# ------
+
+styles = StyleSheet.create
+
+  button:
+    height: 34

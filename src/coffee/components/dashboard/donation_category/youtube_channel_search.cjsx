@@ -3,8 +3,8 @@
 # ---------
 
 # Vendor
-React     = require 'react'
-_debounce = require 'lodash/function/debounce'
+React      = require 'react'
+_debounce  = require 'lodash/function/debounce'
 
 # APIs
 YoutubeSearch = require 'apis/youtube_search'

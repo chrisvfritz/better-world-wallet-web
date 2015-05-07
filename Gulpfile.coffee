@@ -69,7 +69,11 @@ gulp.task 'dev:css', ->
     .pipe handle_errors sass()
     .pipe gulp.dest "#{CONFIG.dev.dir}/css"
 
-gulp.task 'dev:build', ['dev:html', 'dev:js', 'dev:css']
+gulp.task 'dev:fonts', ->
+  gulp.src "#{CONFIG.src.dir}/fonts/**/*.*"
+    .pipe gulp.dest "#{CONFIG.dev.dir}/fonts"
+
+gulp.task 'dev:build', ['dev:html', 'dev:js', 'dev:css', 'dev:fonts']
 
 gulp.task 'serve', ->
   gulp.src CONFIG.dev.dir
@@ -109,7 +113,11 @@ gulp.task 'prod:css', ->
     .pipe handle_errors minify_css()
     .pipe gulp.dest "#{CONFIG.prod.dir}/css"
 
-gulp.task 'prod:build', ['prod:html', 'prod:js', 'prod:css']
+gulp.task 'prod:fonts', ->
+  gulp.src "#{CONFIG.src.dir}/fonts/**/*.*"
+    .pipe gulp.dest "#{CONFIG.prod.dir}/fonts"
+
+gulp.task 'prod:build', ['prod:html', 'prod:js', 'prod:css', 'prod:fonts']
 
 gulp.task 'deploy', ['prod:build'], ->
   gulp.src "#{CONFIG.prod.dir}/**/*"
