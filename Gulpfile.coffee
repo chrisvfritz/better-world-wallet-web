@@ -10,6 +10,7 @@ gutil      = require 'gulp-util'
 webserver  = require 'gulp-webserver'
 gh_pages   = require 'gulp-gh-pages'
 git        = require 'gulp-git'
+del        = require 'del'
 ARGV       = require('yargs').argv
 
 # -------------
@@ -50,13 +51,16 @@ CONFIG.coffee.paths = [
 # Development
 # -----------
 
-gulp.task 'dev:html', ->
+gulp.task 'dev:clean', (callback) ->
+  del [CONFIG.dev.dir], callback
+
+gulp.task 'dev:html', ['dev:clean'], ->
   gulp.src "#{CONFIG.src.dir}/*.jade"
     .pipe handle_errors jade
       pretty: true
     .pipe gulp.dest CONFIG.dev.dir
 
-gulp.task 'dev:js', ->
+gulp.task 'dev:js', ['dev:clean'], ->
   gulp.src "#{CONFIG.src.dir}/#{CONFIG.coffee.dir}/#{CONFIG.coffee.main.name}#{CONFIG.coffee.main.extension}", { read: false }
     .pipe handle_errors browserify
       transform:  CONFIG.coffee.transformations
@@ -65,12 +69,12 @@ gulp.task 'dev:js', ->
     .pipe rename "#{CONFIG.coffee.main.name}.js"
     .pipe gulp.dest "#{CONFIG.dev.dir}/js"
 
-gulp.task 'dev:css', ->
+gulp.task 'dev:css', ['dev:clean'], ->
   gulp.src "#{CONFIG.src.dir}/#{CONFIG.scss.dir}/#{CONFIG.scss.main.name}#{CONFIG.scss.main.extension}"
     .pipe handle_errors sass()
     .pipe gulp.dest "#{CONFIG.dev.dir}/css"
 
-gulp.task 'dev:static', ->
+gulp.task 'dev:static', ['dev:clean'], ->
   gulp.src "#{CONFIG.src.dir}/static/**/*.*"
     .pipe gulp.dest CONFIG.dev.dir
 
@@ -86,6 +90,7 @@ gulp.task 'watch', ->
   gulp.watch "#{CONFIG.src.dir}/**/*.jade", ['dev:html']
   gulp.watch CONFIG.coffee.extensions.map( (ext) -> "#{CONFIG.src.dir}/#{CONFIG.coffee.dir}/**/*#{ext}" ), ['dev:js']
   gulp.watch "#{CONFIG.src.dir}/#{CONFIG.scss.dir}/**/*.scss", ['dev:css']
+  gulp.watch "#{CONFIG.src.dir}/static/**/*.*", ['dev:static']
 
 gulp.task 'default', ['dev:build', 'serve', 'watch']
 
@@ -93,13 +98,15 @@ gulp.task 'default', ['dev:build', 'serve', 'watch']
 # Production
 # ----------
 
-gulp.task 'prod:html', ->
+gulp.task 'prod:clean', (callback) ->
+  del [CONFIG.prod.dir], callback
+
+gulp.task 'prod:html', ['prod:clean'], ->
   gulp.src "#{CONFIG.src.dir}/*.jade"
     .pipe handle_errors jade()
-    .pipe gzip()
     .pipe gulp.dest CONFIG.prod.dir
 
-gulp.task 'prod:js', ->
+gulp.task 'prod:js', ['prod:clean'], ->
   gulp.src "#{CONFIG.src.dir}/#{CONFIG.coffee.dir}/#{CONFIG.coffee.main.name}#{CONFIG.coffee.main.extension}", { read: false }
     .pipe handle_errors browserify
       transform:  CONFIG.coffee.transformations
@@ -107,24 +114,26 @@ gulp.task 'prod:js', ->
       paths:      CONFIG.coffee.paths
     .pipe handle_errors uglify()
     .pipe rename "#{CONFIG.coffee.main.name}.js"
-    .pipe gzip()
     .pipe gulp.dest "#{CONFIG.prod.dir}/js"
 
-gulp.task 'prod:css', ->
+gulp.task 'prod:css', ['prod:clean'], ->
   gulp.src "#{CONFIG.src.dir}/#{CONFIG.scss.dir}/#{CONFIG.scss.main.name}#{CONFIG.scss.main.extension}"
     .pipe handle_errors sass()
     .pipe handle_errors minify_css()
-    .pipe gzip()
     .pipe gulp.dest "#{CONFIG.prod.dir}/css"
 
-gulp.task 'prod:static', ->
+gulp.task 'prod:static', ['prod:clean'], ->
   gulp.src "#{CONFIG.src.dir}/static/**/*.*"
-    .pipe gzip()
     .pipe gulp.dest CONFIG.prod.dir
 
 gulp.task 'prod:build', ['prod:html', 'prod:js', 'prod:css', 'prod:static']
 
-gulp.task 'deploy', ['prod:build'], ->
+gulp.task 'prod:compress', ['prod:build'], ->
+  gulp.src "#{CONFIG.prod.dir}/**/*.*"
+    .pipe gzip()
+    .pipe gulp.dest CONFIG.prod.dir
+
+gulp.task 'deploy', ['prod:compress'], ->
   gulp.src "#{CONFIG.prod.dir}/**/*"
     .pipe gh_pages()
 
