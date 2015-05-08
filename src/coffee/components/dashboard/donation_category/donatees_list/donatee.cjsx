@@ -22,6 +22,13 @@ module.exports = React.createClass
 
   mixins: [ BackboneMixin ]
 
+  # ----------
+  # VALIDATION
+  # ----------
+
+  propTypes:
+    donation: React.PropTypes.number.isRequired
+
   # ---------
   # LIFECYCLE
   # ---------
@@ -80,7 +87,8 @@ module.exports = React.createClass
     100 - (@defined_percent_sum() - @props.model.attributes.percent)
 
   percent_to_use_for_money: ->
-    if @props.model.attributes.percent then @props.model.attributes.percent / 100 else @real_default_percent()
+    percent = @getModel().get('percent')
+    if percent then percent / 100 else @real_default_percent()
 
   visible_default_percent: ->
     Math.floor( @real_default_percent() * 1000 ) / 10
@@ -94,7 +102,7 @@ module.exports = React.createClass
     if @defined_percents().length > 0 then @defined_percents().reduce((a,b) -> a + b) else 0
 
   defined_percents: ->
-    _compact @getCollection().models.map( (d) -> parseInt(d.attributes.percent) )
+    _compact @getCollection().map( (donatee) -> parseInt donatee.get('percent') )
 
 # ------
 # STYLES

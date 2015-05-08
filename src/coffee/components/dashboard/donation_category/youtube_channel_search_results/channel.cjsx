@@ -20,6 +20,15 @@ module.exports = React.createClass
 
   mixins: [ BackboneMixin ]
 
+  # ----------
+  # VALIDATION
+  # ----------
+
+  propTypes:
+    donatee_ids: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+    channel_props: React.PropTypes.object.isRequired
+    click_callback: React.PropTypes.func.isRequired
+
   # -------
   # ACTIONS
   # -------

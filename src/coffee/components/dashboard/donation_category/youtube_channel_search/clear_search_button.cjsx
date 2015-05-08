@@ -17,6 +17,13 @@ Glyphicon = require 'react-bootstrap/lib/Glyphicon'
 module.exports = React.createClass
   displayName: 'ClearSearchButton'
 
+  # ----------
+  # VALIDATION
+  # ----------
+
+  propTypes:
+    click_callback: React.PropTypes.func.isRequired
+
   # ------
   # RENDER
   # ------

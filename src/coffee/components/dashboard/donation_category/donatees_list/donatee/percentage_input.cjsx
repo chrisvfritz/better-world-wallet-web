@@ -22,6 +22,13 @@ module.exports = React.createClass
 
   mixins: [ BackboneMixin ]
 
+  # ----------
+  # VALIDATION
+  # ----------
+
+  propTypes:
+    default_percent: React.PropTypes.number.isRequired
+
   # -------
   # ACTIONS
   # -------

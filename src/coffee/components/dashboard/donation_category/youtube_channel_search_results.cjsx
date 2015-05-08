@@ -24,6 +24,14 @@ module.exports = React.createClass
 
   mixins: [ BackboneMixin ]
 
+  # ----------
+  # VALIDATION
+  # ----------
+
+  propTypes:
+    channels: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+    clear_search_callback: React.PropTypes.func.isRequired
+
   # ------
   # RENDER
   # ------
