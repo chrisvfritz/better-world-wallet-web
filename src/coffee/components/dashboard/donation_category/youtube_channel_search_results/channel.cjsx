@@ -29,6 +29,15 @@ module.exports = React.createClass
     channel_props: React.PropTypes.object.isRequired
     click_callback: React.PropTypes.func.isRequired
 
+  # ---------
+  # LIFECYCLE
+  # ---------
+
+  # @props.channel_props.thumbnail
+  getDefaultProps: ->
+    loader: '/assets/images/loader.gif'
+    show_image: false
+
   # -------
   # ACTIONS
   # -------
@@ -50,7 +59,7 @@ module.exports = React.createClass
       <td width=30>
         <img
           styles = { styles.thumbnail               }
-          src    = { @props.channel_props.thumbnail }
+          src    = { @props.loader }
           alt    = 'Thumbnail'
         />
       </td>

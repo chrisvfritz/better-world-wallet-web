@@ -53,16 +53,13 @@ CONFIG.coffee.paths = [
 # Development
 # -----------
 
-gulp.task 'dev:clean', (callback) ->
-  del [CONFIG.dev.dir], callback
-
-gulp.task 'dev:html', ['dev:clean'], ->
+gulp.task 'dev:html', ->
   gulp.src "#{CONFIG.src.dir}/*.jade"
     .pipe handle_errors jade
       pretty: true
     .pipe gulp.dest CONFIG.dev.dir
 
-gulp.task 'dev:js', ['dev:clean'], ->
+gulp.task 'dev:js', ->
   gulp.src "#{CONFIG.src.dir}/#{CONFIG.coffee.dir}/#{CONFIG.coffee.main.name}#{CONFIG.coffee.main.extension}", { read: false }
     .pipe handle_errors browserify
       transform:  CONFIG.coffee.transformations
@@ -71,14 +68,14 @@ gulp.task 'dev:js', ['dev:clean'], ->
     .pipe rename "#{CONFIG.coffee.main.name}.js"
     .pipe gulp.dest "#{CONFIG.dev.dir}/js"
 
-gulp.task 'dev:css', ['dev:clean'], ->
+gulp.task 'dev:css', ->
   gulp.src "#{CONFIG.src.dir}/#{CONFIG.scss.dir}/#{CONFIG.scss.main.name}#{CONFIG.scss.main.extension}"
     .pipe handle_errors sass()
     .pipe gulp.dest "#{CONFIG.dev.dir}/css"
 
-gulp.task 'dev:static', ['dev:clean'], ->
+gulp.task 'dev:static', ->
   gulp.src "#{CONFIG.src.dir}/#{CONFIG.static.dir}/**/*.*"
-    .pipe gulp.dest CONFIG.dev.dir
+    .pipe gulp.dest "#{CONFIG.dev.dir}/assets"
 
 gulp.task 'dev:build', ['dev:html', 'dev:js', 'dev:css', 'dev:static']
 
@@ -126,7 +123,7 @@ gulp.task 'prod:css', ['prod:clean'], ->
 
 gulp.task 'prod:static', ['prod:clean'], ->
   gulp.src "#{CONFIG.src.dir}/#{CONFIG.static.dir}/**/*.*"
-    .pipe gulp.dest CONFIG.prod.dir
+    .pipe gulp.dest "#{CONFIG.prod.dir}/assets"
 
 gulp.task 'prod:build', ['prod:html', 'prod:js', 'prod:css', 'prod:static']
 
