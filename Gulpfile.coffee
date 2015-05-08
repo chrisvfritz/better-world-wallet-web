@@ -63,7 +63,7 @@ gulp.task 'dev:js', ->
       extensions: CONFIG.coffee.extensions
       paths:      CONFIG.coffee.paths
     .pipe rename "#{CONFIG.coffee.main.name}.js"
-    .pipe gulp.dest CONFIG.dev.dir
+    .pipe gulp.dest "#{CONFIG.dev.dir}/js"
 
 gulp.task 'dev:css', ->
   gulp.src "#{CONFIG.src.dir}/#{CONFIG.scss.dir}/#{CONFIG.scss.main.name}#{CONFIG.scss.main.extension}"
@@ -72,7 +72,7 @@ gulp.task 'dev:css', ->
 
 gulp.task 'dev:static', ->
   gulp.src "#{CONFIG.src.dir}/static/**/*.*"
-    .pipe gulp.dest "#{CONFIG.dev.dir}"
+    .pipe gulp.dest CONFIG.dev.dir
 
 gulp.task 'dev:build', ['dev:html', 'dev:js', 'dev:css', 'dev:static']
 
