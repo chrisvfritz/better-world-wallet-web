@@ -28,15 +28,24 @@ module.exports = React.createClass
     donatee_ids: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
     channel_props: React.PropTypes.object.isRequired
     click_callback: React.PropTypes.func.isRequired
+    loader: React.PropTypes.string
 
   # ---------
   # LIFECYCLE
   # ---------
 
-  # @props.channel_props.thumbnail
   getDefaultProps: ->
-    loader: '/assets/images/loader.gif'
-    show_image: false
+    loader: '/assets/images/loading.gif'
+
+  getInitialState: ->
+    image_is_loaded: false
+
+  componentDidMount: ->
+    thumbnail = new Image()
+    thumbnail.onload = =>
+      @setState
+        image_is_loaded: true
+    thumbnail.src = @props.channel_props.thumbnail
 
   # -------
   # ACTIONS
@@ -58,8 +67,8 @@ module.exports = React.createClass
     >
       <td width=30>
         <img
-          styles = { styles.thumbnail               }
-          src    = { @props.loader }
+          styles = { styles.thumbnail }
+          src    = { if @state.image_is_loaded then @props.channel_props.thumbnail else @props.loader }
           alt    = 'Thumbnail'
         />
       </td>
@@ -113,4 +122,4 @@ styles = StyleSheet.create
       opacity: 0.4
 
   thumbnail:
-    width: '30px'
+    width: 30
