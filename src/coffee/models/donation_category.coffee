@@ -26,6 +26,10 @@ class DonationCategory extends ModelBase
     # When the last donatee in a category has been destroyed
     # and it's not the last category left, destroy the category.
     @attributes.donatees.on 'remove', =>
-      @destroy() if @collection.length > 1 and @attributes.donatees.length == 0
+      if @attributes.donatees.length == 0
+        if @collection.length > 1
+          @destroy()
+        else
+          @set 'title', 'General'
 
 module.exports = DonationCategory
