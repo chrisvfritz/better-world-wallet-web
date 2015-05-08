@@ -63,18 +63,18 @@ gulp.task 'dev:js', ->
       extensions: CONFIG.coffee.extensions
       paths:      CONFIG.coffee.paths
     .pipe rename "#{CONFIG.coffee.main.name}.js"
-    .pipe gulp.dest "#{CONFIG.dev.dir}/js"
+    .pipe gulp.dest CONFIG.dev.dir
 
 gulp.task 'dev:css', ->
   gulp.src "#{CONFIG.src.dir}/#{CONFIG.scss.dir}/#{CONFIG.scss.main.name}#{CONFIG.scss.main.extension}"
     .pipe handle_errors sass()
     .pipe gulp.dest "#{CONFIG.dev.dir}/css"
 
-gulp.task 'dev:fonts', ->
-  gulp.src "#{CONFIG.src.dir}/fonts/**/*.*"
-    .pipe gulp.dest "#{CONFIG.dev.dir}/fonts"
+gulp.task 'dev:static', ->
+  gulp.src "#{CONFIG.src.dir}/static/**/*.*"
+    .pipe gulp.dest "#{CONFIG.dev.dir}"
 
-gulp.task 'dev:build', ['dev:html', 'dev:js', 'dev:css', 'dev:fonts']
+gulp.task 'dev:build', ['dev:html', 'dev:js', 'dev:css', 'dev:static']
 
 gulp.task 'serve', ->
   gulp.src CONFIG.dev.dir
@@ -117,12 +117,12 @@ gulp.task 'prod:css', ->
     .pipe gzip()
     .pipe gulp.dest "#{CONFIG.prod.dir}/css"
 
-gulp.task 'prod:fonts', ->
-  gulp.src "#{CONFIG.src.dir}/fonts/**/*.*"
+gulp.task 'prod:static', ->
+  gulp.src "#{CONFIG.src.dir}/static/**/*.*"
     .pipe gzip()
-    .pipe gulp.dest "#{CONFIG.prod.dir}/fonts"
+    .pipe gulp.dest CONFIG.prod.dir
 
-gulp.task 'prod:build', ['prod:html', 'prod:js', 'prod:css', 'prod:fonts']
+gulp.task 'prod:build', ['prod:html', 'prod:js', 'prod:css', 'prod:static']
 
 gulp.task 'deploy', ['prod:build'], ->
   gulp.src "#{CONFIG.prod.dir}/**/*"
