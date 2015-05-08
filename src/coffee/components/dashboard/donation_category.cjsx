@@ -41,6 +41,7 @@ module.exports = React.createClass
 
   componentDidMount: ->
     window.addEventListener 'resize', @check_for_mobile
+    React.findDOMNode(@).scrollIntoView true
 
   componentWillUnmount: ->
     window.removeEventListener 'resize', @check_for_mobile
