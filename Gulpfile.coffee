@@ -41,6 +41,8 @@ CONFIG =
     main:
       name: 'main'
       extension: '.scss'
+  static:
+    dir: 'static'
 
 CONFIG.coffee.paths = [
   'node_modules'
@@ -75,12 +77,12 @@ gulp.task 'dev:css', ['dev:clean'], ->
     .pipe gulp.dest "#{CONFIG.dev.dir}/css"
 
 gulp.task 'dev:static', ['dev:clean'], ->
-  gulp.src "#{CONFIG.src.dir}/static/**/*.*"
+  gulp.src "#{CONFIG.src.dir}/#{CONFIG.static.dir}/**/*.*"
     .pipe gulp.dest CONFIG.dev.dir
 
 gulp.task 'dev:build', ['dev:html', 'dev:js', 'dev:css', 'dev:static']
 
-gulp.task 'serve', ->
+gulp.task 'serve', ['dev:build'], ->
   gulp.src CONFIG.dev.dir
     .pipe webserver
       livereload: true
@@ -90,9 +92,9 @@ gulp.task 'watch', ->
   gulp.watch "#{CONFIG.src.dir}/**/*.jade", ['dev:html']
   gulp.watch CONFIG.coffee.extensions.map( (ext) -> "#{CONFIG.src.dir}/#{CONFIG.coffee.dir}/**/*#{ext}" ), ['dev:js']
   gulp.watch "#{CONFIG.src.dir}/#{CONFIG.scss.dir}/**/*.scss", ['dev:css']
-  gulp.watch "#{CONFIG.src.dir}/static/**/*.*", ['dev:static']
+  gulp.watch "#{CONFIG.src.dir}/#{CONFIG.static.dir}/**/*.*", ['dev:static']
 
-gulp.task 'default', ['dev:build', 'serve', 'watch']
+gulp.task 'default', ['serve', 'watch']
 
 # ----------
 # Production
@@ -123,7 +125,7 @@ gulp.task 'prod:css', ['prod:clean'], ->
     .pipe gulp.dest "#{CONFIG.prod.dir}/css"
 
 gulp.task 'prod:static', ['prod:clean'], ->
-  gulp.src "#{CONFIG.src.dir}/static/**/*.*"
+  gulp.src "#{CONFIG.src.dir}/#{CONFIG.static.dir}/**/*.*"
     .pipe gulp.dest CONFIG.prod.dir
 
 gulp.task 'prod:build', ['prod:html', 'prod:js', 'prod:css', 'prod:static']
