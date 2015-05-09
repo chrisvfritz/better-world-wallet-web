@@ -35,7 +35,7 @@ module.exports = React.createClass
   # ---------
 
   getDefaultProps: ->
-    loader: '/assets/images/loading.gif'
+    loader: 'assets/images/loading.gif'
 
   getInitialState: ->
     image_is_loaded: false
