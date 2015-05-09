@@ -28,8 +28,6 @@ module.exports = React.createClass
   # ------
 
   render: ->
-    sorted_donatees = @getCollection().sort()
-
     <div>
       <Table
         styles  = { styles.table }
@@ -37,8 +35,8 @@ module.exports = React.createClass
       >
         <tbody>
           {
-            if sorted_donatees.length > 0
-              for donatee in sorted_donatees.models
+            if @getCollection().length > 0
+              @getCollection().map (donatee) =>
                 <Donatee
                   key      = { donatee.cid                }
                   model    = { donatee                    }

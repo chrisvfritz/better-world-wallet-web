@@ -17,6 +17,12 @@ class DonationCategories extends Backbone.Collection
   model: DonationCategory
   sync: Backbone.localforage.sync 'DonationCategories'
 
+  donation_total: ->
+    @
+      .map (category) ->
+        category.donation_float() || 0
+      .reduce ( (a,b) -> a + b ), 0
+
   # Eventually I'll want to fetch records from an API for a specific user with
   # custom params and I may do so similar to below:
 

@@ -19,6 +19,7 @@ Glyphicon = require 'react-bootstrap/lib/Glyphicon'
 # Components
 Card             = require 'components/shared/card'
 DonationCategory = require './dashboard/donation_category'
+DonationChart    = require './dashboard/donation_chart'
 
 # ---------
 # COMPONENT
@@ -39,7 +40,10 @@ module.exports = React.createClass
         <Card>
           <div styles={ styles.total.container }>
             <h2 styles={[ styles.total.text.base, styles.total.text.first]}>
-              Total: ${ @donation_total() }
+              Total: ${
+                total = @getCollection().donation_total()
+                if total % 1 is 0 then total else total.toFixed(2)
+              }
             </h2>
             <Button
               onClick = { @add_new_category      }
@@ -64,9 +68,13 @@ module.exports = React.createClass
           <h3 styles={ styles.welcome.heading }>
             Welcome!
           </h3>
-          <p styles={ styles.welcome.paragraphs.last }>
-            This is Better World Wallet!
+          <p styles={ styles.welcome.paragraph }>
+            As you add donations and categories, a summary graph will appear below to visualize your values as reflected in how you vote with your money.
           </p>
+          {
+            if @getCollection().length > 1
+              <DonationChart/>
+          }
         </Card>
       </Col>
     </Row>
@@ -77,13 +85,6 @@ module.exports = React.createClass
 
   add_new_category: ->
     @getCollection().add new DonationCategoryModel()
-
-  donation_total: ->
-    @getCollection()
-      .map (category) ->
-        parseFloat(category.attributes.donation || 0)
-      .reduce ( (a,b) -> a + b ), 0
-      .toFixed 2
 
 # ------
 # STYLES
@@ -96,10 +97,8 @@ styles = StyleSheet.create
     heading:
       marginTop: 0
 
-    paragraphs:
-
-      last:
-        marginBottom: 0
+    paragraph:
+      marginBottom: 0
 
   total:
 
