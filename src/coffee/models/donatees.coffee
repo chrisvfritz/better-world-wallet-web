@@ -3,8 +3,7 @@
 # -------
 
 # Vendor
-Backbone             = require 'backbone'
-Backbone.localforage = require 'localforage-backbone'
+Backbone = require 'backbone'
 
 # Models
 Donatee = require './donatee'
@@ -15,7 +14,7 @@ Donatee = require './donatee'
 
 class Donatees extends Backbone.Collection
   model: Donatee
-  sync: Backbone.localforage.sync 'Donatees'
+  url: '/donatees.json'
 
   comparator: (donatee) ->
     donatee.get 'title'

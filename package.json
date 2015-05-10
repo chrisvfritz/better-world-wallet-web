@@ -29,8 +29,6 @@
     "gulp-util": "^3.0.4",
     "gulp-webserver": "^0.9.0",
     "jade": "^1.9.2",
-    "localforage": "^1.2.2",
-    "localforage-backbone": "^0.6.1",
     "lodash": "^3.7.0",
     "react": "^0.13.2",
     "react-bootstrap": "^0.21.0",

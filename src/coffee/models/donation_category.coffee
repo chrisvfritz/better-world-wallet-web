@@ -3,8 +3,7 @@
 # -------
 
 # Vendor
-Backbone             = require 'backbone'
-Backbone.localforage = require 'localforage-backbone'
+Backbone = require 'backbone'
 
 # Models
 ModelBase = require './_model_base'
@@ -15,7 +14,7 @@ Donatees  = require './donatees'
 # -----
 
 class DonationCategory extends ModelBase
-  sync: Backbone.localforage.sync 'DonationCategory'
+  url: -> "/donation-categories/#{@id}.json"
 
   defaults: ->
     title: 'Untitled Category'

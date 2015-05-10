@@ -3,8 +3,7 @@
 # -------
 
 # Vendor
-Backbone             = require 'backbone'
-Backbone.localforage = require 'localforage-backbone'
+Backbone = require 'backbone'
 
 # Models
 ModelBase = require './_model_base'
@@ -14,7 +13,7 @@ ModelBase = require './_model_base'
 # -----
 
 class Donatee extends ModelBase
-  sync: Backbone.localforage.sync 'Donatee'
+  url: -> "/donatees/#{@id}.json"
 
   defaults:
     percent: null
