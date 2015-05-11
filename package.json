@@ -29,9 +29,9 @@
     "gulp-webserver": "^0.9.0",
     "jade": "^1.9.2",
     "lodash": "^3.7.0",
+    "radium": "^0.11.1",
     "react": "^0.13.2",
-    "react-bootstrap": "^0.21.0",
-    "react-style": "^0.5.5",
+    "react-bootstrap": "^0.21.2",
     "superagent": "^1.2.0",
     "underscore": "^1.8.3",
     "yargs": "^3.8.0"

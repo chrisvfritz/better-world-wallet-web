@@ -20,7 +20,7 @@ module.exports = React.createClass
   # -------
 
   handle_click: ->
-    @getModel().destroy()
+    @getCollection().remove @getModel()
 
   # ------
   # RENDER

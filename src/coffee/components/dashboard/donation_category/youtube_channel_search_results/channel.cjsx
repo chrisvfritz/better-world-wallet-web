@@ -5,7 +5,7 @@
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
-StyleSheet    = require 'react-style'
+Radium        = require 'radium'
 _compact      = require 'lodash/array/compact'
 
 # Models
@@ -15,7 +15,7 @@ DonateeModel = require 'models/donatee'
 # COMPONENT
 # ---------
 
-module.exports = React.createClass
+module.exports = React.createClass Radium.wrap
   displayName: 'Channel'
 
   mixins: [ BackboneMixin ]
@@ -63,11 +63,11 @@ module.exports = React.createClass
   render: ->
     <tr
       onClick = { @handle_click }
-      styles  = {[ styles.row.base, @is_already_added() && styles.row.added ]}
+      style   = {[ styles.row.base, @is_already_added() && styles.row.added ]}
     >
       <td width=30>
         <img
-          styles = { styles.thumbnail }
+          style  = { styles.thumbnail }
           src    = { if @state.image_is_loaded then @props.channel_props.thumbnail else @props.loader }
           alt    = 'Thumbnail'
         />
@@ -108,7 +108,7 @@ module.exports = React.createClass
 # STYLES
 # ------
 
-styles = StyleSheet.create
+styles =
 
   row:
 

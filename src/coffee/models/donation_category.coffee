@@ -27,7 +27,7 @@ class DonationCategory extends ModelBase
     @get('donatees').on 'remove', =>
       if @get('donatees').length == 0
         if @collection.length > 1
-          @destroy()
+          @collection.remove @
         else
           @set 'title', 'General'
 

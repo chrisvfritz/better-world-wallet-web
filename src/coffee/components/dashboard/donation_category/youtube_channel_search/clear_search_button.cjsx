@@ -3,8 +3,8 @@
 # -------
 
 # Vendor
-React      = require 'React'
-StyleSheet = require 'react-style'
+React  = require 'react'
+Radium = require 'radium'
 
 # Bootstrap
 Button    = require 'react-bootstrap/lib/Button'
@@ -14,7 +14,7 @@ Glyphicon = require 'react-bootstrap/lib/Glyphicon'
 # COMPONENT
 # ---------
 
-module.exports = React.createClass
+module.exports = React.createClass Radium.wrap
   displayName: 'ClearSearchButton'
 
   # ----------
@@ -31,7 +31,7 @@ module.exports = React.createClass
   render: ->
     <Button
       onClick = { @props.click_callback }
-      styles  = { styles.button         }
+      style   = { styles.button         }
     >
       <Glyphicon glyph='remove-circle'/>
     </Button>
@@ -40,7 +40,7 @@ module.exports = React.createClass
 # STYLES
 # ------
 
-styles = StyleSheet.create
+styles =
 
   button:
     height: 34

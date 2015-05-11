@@ -5,7 +5,7 @@
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
-StyleSheet    = require 'react-style'
+Radium        = require 'radium'
 
 # Bootstrap
 Row = require 'react-bootstrap/lib/Row'
@@ -22,7 +22,7 @@ DonateesList                = require './donation_category/donatees_list'
 # COMPONENT
 # ---------
 
-module.exports = React.createClass
+module.exports = React.createClass Radium.wrap
   displayName: 'DonationCategory'
 
   mixins: [ BackboneMixin ]
@@ -76,7 +76,7 @@ module.exports = React.createClass
           <input
             value     = { @getModel().get 'title' }
             onChange  = { @handle_title_change    }
-            styles    = {[ styles.title.base, @state.mobile && styles.title.mobile ]}
+            style     = {[ styles.title.base, @state.mobile && styles.title.mobile ]}
             type      = 'text'
           />
         </Col>
@@ -92,14 +92,14 @@ module.exports = React.createClass
         channels              = { @state.search_results }
         clear_search_callback = { @clear_search         }
       />
-      <h4 styles={styles.donation_heading}>
-        <span styles={[ styles.donation_text.base, styles.donation_text.first ]}>
+      <h4 style={styles.donation_heading}>
+        <span style={[ styles.donation_text.base, styles.donation_text.first ]}>
           Donating
         </span>
-        <span styles={[ styles.donation_text.base, styles.donation_text.input ]}>
+        <span style={[ styles.donation_text.base, styles.donation_text.input ]}>
           <DonationAmountInput/>
         </span>
-        <span styles={[ styles.donation_text.base, styles.donation_text.last ]}>
+        <span style={[ styles.donation_text.base, styles.donation_text.last ]}>
           to
         </span>
       </h4>
@@ -121,7 +121,7 @@ module.exports = React.createClass
 # STYLES
 # ------
 
-styles = StyleSheet.create
+styles =
 
   title:
 

@@ -5,7 +5,7 @@
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
-StyleSheet    = require 'react-style'
+Radium        = require 'radium'
 _compact      = require 'lodash/array/compact'
 _flatten      = require 'lodash/array/flatten'
 
@@ -19,7 +19,7 @@ Channel = require './youtube_channel_search_results/channel'
 # COMPONENT
 # ---------
 
-module.exports = React.createClass
+module.exports = React.createClass Radium.wrap
   displayName: 'YoutubeChannelSearchResults'
 
   mixins: [ BackboneMixin ]
@@ -37,11 +37,11 @@ module.exports = React.createClass
   # ------
 
   render: ->
-    <div styles={ styles.container }>
-      <Table hover=true styles={ styles.table }>
+    <div style={ styles.container }>
+      <Table hover=true style={ styles.table }>
         <tbody>
           {
-            for channel in @props.channels
+            @props.channels.map (channel) =>
               <Channel
                 key            = { channel.id                   }
                 donatee_ids    = { @all_donatee_ids()           }
@@ -64,7 +64,7 @@ module.exports = React.createClass
 # STYLES
 # ------
 
-styles = StyleSheet.create
+styles =
 
   container:
     position: 'relative'

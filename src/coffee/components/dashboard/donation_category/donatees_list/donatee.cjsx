@@ -5,7 +5,7 @@
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
-StyleSheet    = require 'react-style'
+Radium        = require 'radium'
 Accounting    = require 'accounting'
 
 # Components
@@ -16,7 +16,7 @@ PercentageInput     = require './donatee/percentage_input'
 # COMPONENT
 # ---------
 
-module.exports = React.createClass
+module.exports = React.createClass Radium.wrap
   displayName: 'Donatee'
 
   mixins: [ BackboneMixin ]
@@ -36,22 +36,22 @@ module.exports = React.createClass
   # ------
 
   render: ->
-    <tr styles={[ styles.row.base, @state.was_just_added and styles.row.active ]}>
-      <td styles={ styles.cell }>
+    <tr style={[ styles.row.base, @state.was_just_added and styles.row.active ]}>
+      <td style={ styles.cell }>
         <a href="https://www.youtube.com/channel/#{ @getModel().get 'id' }" target='_blank'>
           { @getModel().get 'title' }
         </a>
       </td>
-      <td styles={ styles.cell }>
+      <td style={ styles.cell }>
         <PercentageInput
           default_percent = { @formatted_default_percent() }
           max             = { @getModel().max_percent()    }
         />
       </td>
-      <td styles={ styles.cell }>
+      <td style={ styles.cell }>
         { @formatted_donation() }
       </td>
-      <td styles={ styles.cell }>
+      <td style={ styles.cell }>
         <RemoveDonateeButton
           remove_callback = { @remove_donatee }
         />
@@ -82,7 +82,7 @@ module.exports = React.createClass
 # STYLES
 # ------
 
-styles = StyleSheet.create
+styles =
 
   row:
 

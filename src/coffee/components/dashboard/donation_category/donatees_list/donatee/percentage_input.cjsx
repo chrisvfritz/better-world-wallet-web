@@ -5,7 +5,7 @@
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
-StyleSheet    = require 'react-style'
+Radium        = require 'radium'
 
 # Bootstrap
 Input = require 'react-bootstrap/lib/Input'
@@ -17,7 +17,7 @@ RemoveDonateeButton = require './remove_donatee_button'
 # COMPONENT
 # ---------
 
-module.exports = React.createClass
+module.exports = React.createClass Radium.wrap
   displayName: 'PercentageInput'
 
   mixins: [ BackboneMixin ]
@@ -48,7 +48,7 @@ module.exports = React.createClass
       onChange    = { @handle_change         }
       value       = { @formatted_percent()   }
       placeholder = { @props.default_percent }
-      styles      = { styles.input           }
+      style       = { styles.input           }
       type        = 'text'
       addonAfter  = '%'
       bsSize      = 'small'
@@ -66,7 +66,7 @@ module.exports = React.createClass
 # STYLES
 # ------
 
-styles = StyleSheet.create
+styles =
 
   input:
     width: 45

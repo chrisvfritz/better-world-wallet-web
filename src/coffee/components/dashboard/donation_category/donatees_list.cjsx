@@ -5,7 +5,7 @@
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
-StyleSheet    = require 'react-style'
+Radium        = require 'radium'
 
 # Bootstrap
 Table = require 'react-bootstrap/lib/Table'
@@ -18,7 +18,7 @@ DonationAmountInput = require './donation_amount_input'
 # COMPONENT
 # ---------
 
-module.exports = React.createClass
+module.exports = React.createClass Radium.wrap
   displayName: 'DonateesList'
 
   mixins: [ BackboneMixin ]
@@ -30,13 +30,14 @@ module.exports = React.createClass
   render: ->
     <div>
       <Table
-        styles  = { styles.table }
+        style   = { styles.table }
         striped = true
       >
         <tbody>
           {
-            if @getCollection().length > 0
-              @getCollection().map (donatee) =>
+            donatees = @getCollection()
+            if donatees.length > 0
+              donatees.map (donatee) =>
                 <Donatee
                   key      = { donatee.cid                }
                   model    = { donatee                    }
@@ -55,7 +56,7 @@ module.exports = React.createClass
 # STYLES
 # ------
 
-styles = StyleSheet.create
+styles =
 
   table:
     marginLeft: -3

@@ -3,14 +3,14 @@
 # -------
 
 # Vendor
-React      = require 'react'
-StyleSheet = require 'react-style'
+React  = require 'react'
+Radium = require 'radium'
 
 # ---------
 # COMPONENT
 # ---------
 
-module.exports = React.createClass
+module.exports = React.createClass Radium.wrap
   displayName: 'Card'
 
   # ------
@@ -18,7 +18,7 @@ module.exports = React.createClass
   # ------
 
   render: ->
-    <div styles={ styles.card }>
+    <div style={ styles.card }>
       { @props.children }
     </div>
 
@@ -26,7 +26,7 @@ module.exports = React.createClass
 # STYLES
 # ------
 
-styles = StyleSheet.create
+styles =
 
   card:
     padding: 15

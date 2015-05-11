@@ -5,7 +5,6 @@
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
-StyleSheet    = require 'react-style'
 _sortBy       = require 'lodash/collection/sortBy'
 _max          = require 'lodash/collection/max'
 
@@ -51,9 +50,3 @@ module.exports = React.createClass
 
   max_donation: ->
     _max @getCollection().map (category) -> category.donation_float()
-
-# ------
-# STYLES
-# ------
-
-styles = StyleSheet.create

@@ -5,7 +5,7 @@
 # Vendor
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
-StyleSheet    = require 'react-style'
+Radium        = require 'radium'
 
 # Models
 DonationCategoryModel = require 'models/donation_category'
@@ -25,7 +25,7 @@ DonationChart    = require './dashboard/donation_chart'
 # COMPONENT
 # ---------
 
-module.exports = React.createClass
+module.exports = React.createClass Radium.wrap
   displayName: 'Dashboard'
 
   mixins: [ BackboneMixin ]
@@ -38,8 +38,8 @@ module.exports = React.createClass
     <Row>
       <Col md=6>
         <Card>
-          <div styles={ styles.total.container }>
-            <h2 styles={[ styles.total.text.base, styles.total.text.first]}>
+          <div style={ styles.total.container }>
+            <h2 style={[ styles.total.text.base, styles.total.text.first]}>
               Total: ${
                 total = @getCollection().donation_total()
                 if total % 1 is 0 then total else total.toFixed(2)
@@ -47,7 +47,7 @@ module.exports = React.createClass
             </h2>
             <Button
               onClick = { @add_new_category      }
-              styles  = { styles.total.text.base }
+              style   = { styles.total.text.base }
               bsSize  = 'medium'
               bsStyle = 'primary'
             >
@@ -65,10 +65,10 @@ module.exports = React.createClass
       </Col>
       <Col md=6>
         <Card>
-          <h3 styles={ styles.welcome.heading }>
+          <h3 style={ styles.welcome.heading }>
             Welcome!
           </h3>
-          <p styles={ styles.welcome.paragraph }>
+          <p style={ styles.welcome.paragraph }>
             As you add donations and categories, a summary graph will appear below to visualize your values as reflected in how you vote with your money.
           </p>
           {
@@ -90,7 +90,7 @@ module.exports = React.createClass
 # STYLES
 # ------
 
-styles = StyleSheet.create
+styles =
 
   welcome:
 
