@@ -7,7 +7,6 @@ React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
 StyleSheet    = require 'react-style'
 Accounting    = require 'accounting'
-_compact      = require 'lodash/array/compact'
 
 # Components
 RemoveDonateeButton = require './donatee/remove_donatee_button'
@@ -21,13 +20,6 @@ module.exports = React.createClass
   displayName: 'Donatee'
 
   mixins: [ BackboneMixin ]
-
-  # ----------
-  # VALIDATION
-  # ----------
-
-  propTypes:
-    donation: React.PropTypes.number.isRequired
 
   # ---------
   # LIFECYCLE
@@ -52,12 +44,12 @@ module.exports = React.createClass
       </td>
       <td styles={ styles.cell }>
         <PercentageInput
-          default_percent = { @visible_default_percent() }
-          max             = { @max()                     }
+          default_percent = { @formatted_default_percent() }
+          max             = { @getModel().max_percent()    }
         />
       </td>
       <td styles={ styles.cell }>
-        { Accounting.formatMoney @money() }
+        { @formatted_donation() }
       </td>
       <td styles={ styles.cell }>
         <RemoveDonateeButton
@@ -80,29 +72,11 @@ module.exports = React.createClass
       , 2000
     , 1
 
-  money: ->
-    @props.donation * @percent_to_use_for_money()
+  formatted_default_percent: ->
+    Math.floor( @getModel().default_percent() * 1000 ) / 10
 
-  max: ->
-    100 - (@defined_percent_sum() - @props.model.attributes.percent)
-
-  percent_to_use_for_money: ->
-    percent = @getModel().get('percent')
-    if percent then percent / 100 else @real_default_percent()
-
-  visible_default_percent: ->
-    Math.floor( @real_default_percent() * 1000 ) / 10
-
-  real_default_percent: ->
-    percent = (1 - @defined_percent_sum() / 100) / (@getCollection().models.length - @defined_percents().length)
-    # http://stackoverflow.com/questions/1458633/how-to-deal-with-floating-point-number-precision-in-javascript#answer-3644302
-    parseFloat percent.toPrecision(12)
-
-  defined_percent_sum: ->
-    if @defined_percents().length > 0 then @defined_percents().reduce((a,b) -> a + b) else 0
-
-  defined_percents: ->
-    _compact @getCollection().map( (donatee) -> parseInt donatee.get('percent') )
+  formatted_donation: ->
+    Accounting.formatMoney( @props.donation * @getModel().decimal_percent() )
 
 # ------
 # STYLES

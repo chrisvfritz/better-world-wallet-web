@@ -6,8 +6,8 @@
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
 StyleSheet    = require 'react-style'
-D3            = require 'd3'
 _sortBy       = require 'lodash/collection/sortBy'
+_max          = require 'lodash/collection/max'
 
 # Components
 Bar = require './donation_chart/bar'
@@ -26,26 +26,31 @@ module.exports = React.createClass
   # ------
 
   render: ->
-    donations = @getCollection().map (category) -> category.donation_float()
-
-    x = D3.scale.linear()
-      .domain [ 0, D3.max donations ]
-      .range  [ 0, 100 ]
-
     <div>
       {
         sorted_categories = _sortBy @getCollection().models, (category) -> -category.donation_float()
-        sorted_categories.map (category) ->
+        sorted_categories.map (category) =>
           donation = category.donation_float()
           if donation > 0
             <Bar
-              key      = { category.cid         }
-              donation = { donation             }
-              width    = { x donation           }
-              title    = { category.get 'title' }
+              key        = { category.cid            }
+              collection = { category.get 'donatees' }
+              donation   = { donation                }
+              width      = { @scale_x donation       }
+              title      = { category.get 'title'    }
             />
       }
     </div>
+
+  # -------
+  # HELPERS
+  # -------
+
+  scale_x: (donation) ->
+    donation * 100 / @max_donation()
+
+  max_donation: ->
+    _max @getCollection().map (category) -> category.donation_float()
 
 # ------
 # STYLES

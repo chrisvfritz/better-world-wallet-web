@@ -45,15 +45,22 @@ module.exports = React.createClass
 
   render: ->
     <Input
-      onChange    = { @handle_change            }
-      value       = { @getModel().get 'percent' }
-      placeholder = { @props.default_percent    }
-      styles      = { styles.input              }
+      onChange    = { @handle_change         }
+      value       = { @formatted_percent()   }
+      placeholder = { @props.default_percent }
+      styles      = { styles.input           }
       type        = 'text'
       addonAfter  = '%'
       bsSize      = 'small'
       standalone  = true
     />
+
+  # -------
+  # HELPERS
+  # -------
+
+  formatted_percent: ->
+    @getModel().get('percent') || ''
 
 # ------
 # STYLES
