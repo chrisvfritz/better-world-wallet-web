@@ -6,6 +6,7 @@
 React         = require 'react'
 BackboneMixin = require 'backbone-react-component'
 Radium        = require 'radium'
+Accounting    = require 'accounting'
 
 # Models
 DonationCategoryModel = require 'models/donation_category'
@@ -40,9 +41,8 @@ module.exports = React.createClass Radium.wrap
         <Card>
           <div style={ styles.total.container }>
             <h2 style={[ styles.total.text.base, styles.total.text.first]}>
-              Total: ${
-                total = @getCollection().donation_total()
-                if total % 1 is 0 then total else total.toFixed(2)
+              Total: {
+                Accounting.formatMoney @getCollection().donation_total()
               }
             </h2>
             <Button

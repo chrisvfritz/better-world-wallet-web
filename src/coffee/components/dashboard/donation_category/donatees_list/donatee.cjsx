@@ -71,7 +71,7 @@ module.exports = React.createClass Radium.wrap
     Math.floor( @getModel().default_percent() * 1000 ) / 10
 
   formatted_donation: ->
-    Accounting.formatMoney( @props.donation * @getModel().decimal_percent() )
+    Accounting.formatMoney @props.donation * @getModel().decimal_percent()
 
 # ------
 # STYLES
