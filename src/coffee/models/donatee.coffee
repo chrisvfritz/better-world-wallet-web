@@ -17,7 +17,7 @@ class Donatee extends ModelBase
   url: -> "/donatees/#{@id}.json"
 
   defaults:
-    percent: null
+    percent: ''
 
   decimal_percent: ->
     ( @get('percent') / 100 ) || @default_percent()
@@ -28,7 +28,11 @@ class Donatee extends ModelBase
     parseFloat percent.toPrecision(12)
 
   max_percent: ->
-    100 - ( @defined_percent_sum() - @get('percent') )
+    percent = @get 'percent'
+    # Don't allow the last undefined percent in a category to be defined, as it would allow users to
+    # decide leave part of their money unused.
+    return 0 if @collection.filter( (donatee) -> donatee.get('percent') ).length is @collection.length - 1 and percent.length is 0
+    100 - ( @defined_percent_sum() - percent )
 
   defined_percent_sum: ->
     defined_percents = @defined_percents()

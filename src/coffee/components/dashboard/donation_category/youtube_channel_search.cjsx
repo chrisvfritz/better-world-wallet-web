@@ -56,7 +56,7 @@ module.exports = React.createClass
     , 300
 
   componentDidUpdate: ->
-    React.findDOMNode(@).getElementsByTagName('input')[0].focus() if @should_focus
+    @refs.input.refs.input.getDOMNode().focus() if @should_focus
 
   # -------
   # ACTIONS
@@ -80,6 +80,7 @@ module.exports = React.createClass
                         click_callback = { @props.clear_search_callback }
                       />
                     }
+      ref         = { 'input' }
       standalone  = true
       placeholder = 'Add a new channel...'
       type        = 'text'

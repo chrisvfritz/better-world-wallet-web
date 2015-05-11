@@ -43,18 +43,13 @@ module.exports = React.createClass Radium.wrap
         </a>
       </td>
       <td style={ styles.cell }>
-        <PercentageInput
-          default_percent = { @formatted_default_percent() }
-          max             = { @getModel().max_percent()    }
-        />
+        <PercentageInput default_percent={ @formatted_default_percent() }/>
       </td>
       <td style={ styles.cell }>
         { @formatted_donation() }
       </td>
       <td style={ styles.cell }>
-        <RemoveDonateeButton
-          remove_callback = { @remove_donatee }
-        />
+        <RemoveDonateeButton remove_callback={ @remove_donatee }/>
       </td>
     </tr>
 
