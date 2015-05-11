@@ -78,4 +78,4 @@ module.exports = React.createClass Radium.wrap
 styles =
 
   input:
-    width: 45
+    width: 46
