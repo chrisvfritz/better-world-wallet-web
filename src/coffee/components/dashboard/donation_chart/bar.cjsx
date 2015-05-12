@@ -32,21 +32,24 @@ module.exports = React.createClass Radium.wrap
   # ------
 
   render: ->
-    <div style={[ styles.bar.base, @dynamic_bar_styles() ]}>
-      {
-        sorted_donatees = _sortBy @getCollection().models, (donatee) -> -donatee.decimal_percent()
-        sorted_donatees.map (donatee) =>
-          <div
-            key   = donatee.cid
-            style = {[ styles.section.base, @dynamic_section_styles(donatee) ]}
-          >
-            <SectionTooltip model={ donatee }/>
-          </div>
-      }
-      <span style={[ styles.text.base, if @props.width < 50 then styles.text.right else styles.text.left ]}>
-        { @props.title }
-      </span>
-    </div>
+    if @getCollection().length > 0
+      <div style={[ styles.bar.base, @dynamic_bar_styles() ]}>
+        {
+          sorted_donatees = _sortBy @getCollection().models, (donatee) -> -donatee.decimal_percent()
+          sorted_donatees.map (donatee) =>
+            <div
+              key   = donatee.cid
+              style = {[ styles.section.base, @dynamic_section_styles(donatee) ]}
+            >
+              <SectionTooltip model={ donatee }/>
+            </div>
+        }
+        <span style={[ styles.text.base, if @props.width < 50 then styles.text.right else styles.text.left ]}>
+          { @props.title }
+        </span>
+      </div>
+    else
+      <span></span>
 
   # -------
   # HELPERS

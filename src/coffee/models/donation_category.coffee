@@ -31,6 +31,7 @@ class DonationCategory extends ModelBase
           @collection.remove @
         else
           @set 'title', 'General'
+          @set 'donation', 0
 
   donation_float: ->
     parseFloat @get('donation')

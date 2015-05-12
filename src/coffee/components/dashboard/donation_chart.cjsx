@@ -49,4 +49,8 @@ module.exports = React.createClass
     donation * 100 / @max_donation()
 
   max_donation: ->
-    _max @getCollection().map (category) -> category.donation_float()
+    _max @getCollection().map (category) ->
+      if category.get('donatees').length > 0
+        category.donation_float()
+      else
+        0

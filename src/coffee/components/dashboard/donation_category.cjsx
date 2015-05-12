@@ -15,7 +15,6 @@ Col = require 'react-bootstrap/lib/Col'
 Card                        = require 'components/shared/card'
 YoutubeChannelSearch        = require './donation_category/youtube_channel_search'
 YoutubeChannelSearchResults = require './donation_category/youtube_channel_search_results'
-DonationAmountInput         = require './donation_category/donation_amount_input'
 DonateesList                = require './donation_category/donatees_list'
 
 # ---------
@@ -92,17 +91,6 @@ module.exports = React.createClass Radium.wrap
         channels              = { @state.search_results }
         clear_search_callback = { @clear_search         }
       />
-      <h4 style={styles.donation_heading}>
-        <span style={[ styles.donation_text.base, styles.donation_text.first ]}>
-          Donating
-        </span>
-        <span style={[ styles.donation_text.base, styles.donation_text.input ]}>
-          <DonationAmountInput/>
-        </span>
-        <span style={[ styles.donation_text.base, styles.donation_text.last ]}>
-          to
-        </span>
-      </h4>
       <DonateesList
         collection = { @getModel().get 'donatees' }
         donation   = { @getModel().get 'donation' }
@@ -139,23 +127,3 @@ styles =
 
     mobile:
       marginBottom: 10
-
-  donation_heading:
-    margin: '10px 0'
-    display: 'tabln'
-
-  donation_text:
-
-    base:
-      display: 'table-cell'
-      verticalAlign: 'middle'
-      padding: '0 4px'
-
-    first:
-      paddingLeft: 0
-
-    last:
-      paddingRight: 0
-
-    input:
-      width: '100%'

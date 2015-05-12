@@ -31,6 +31,13 @@ module.exports = React.createClass Radium.wrap
 
   mixins: [ BackboneMixin ]
 
+  # -------
+  # ACTIONS
+  # -------
+
+  add_new_category: ->
+    @getCollection().add new DonationCategoryModel()
+
   # ------
   # RENDER
   # ------
@@ -71,20 +78,10 @@ module.exports = React.createClass Radium.wrap
           <p style={ styles.welcome.paragraph }>
             As you add donations and categories, a summary graph will appear below to visualize your values as reflected in how you vote with your money.
           </p>
-          {
-            if @getCollection().length > 1
-              <DonationChart/>
-          }
+          <DonationChart/>
         </Card>
       </Col>
     </Row>
-
-  # -------
-  # HELPERS
-  # -------
-
-  add_new_category: ->
-    @getCollection().add new DonationCategoryModel()
 
 # ------
 # STYLES

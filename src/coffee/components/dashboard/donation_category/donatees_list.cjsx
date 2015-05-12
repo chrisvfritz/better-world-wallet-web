@@ -28,35 +28,64 @@ module.exports = React.createClass Radium.wrap
   # ------
 
   render: ->
-    <div>
-      <Table
-        style   = { styles.table }
-        striped = true
-      >
-        <tbody>
-          {
-            donatees = @getCollection()
-            if donatees.length > 0
+    donatees = @getCollection()
+    if donatees.length > 0
+      <div>
+        <h4 style={styles.donation_heading}>
+          <span style={[ styles.donation_text.base, styles.donation_text.first ]}>
+            Donating
+          </span>
+          <span style={[ styles.donation_text.base, styles.donation_text.input ]}>
+            <DonationAmountInput/>
+          </span>
+          <span style={[ styles.donation_text.base, styles.donation_text.last ]}>
+            to
+          </span>
+        </h4>
+        <Table
+          style   = { styles.table }
+          striped = true
+        >
+          <tbody>
+            {
               donatees.map (donatee) =>
                 <Donatee
                   key      = { donatee.cid                }
                   model    = { donatee                    }
                   donation = { @getModel().get 'donation' }
                 />
-            else
-              <tr>
-                <td>Nothing yet.</td>
-              </tr>
-          }
-        </tbody>
-      </Table>
-    </div>
+            }
+          </tbody>
+        </Table>
+      </div>
+    else
+      <span></span>
 
 # ------
 # STYLES
 # ------
 
 styles =
+
+  donation_heading:
+    margin: '10px 0'
+    display: 'tabln'
+
+  donation_text:
+
+    base:
+      display: 'table-cell'
+      verticalAlign: 'middle'
+      padding: '0 4px'
+
+    first:
+      paddingLeft: 0
+
+    input:
+      width: '100%'
+
+    last:
+      paddingRight: 0
 
   table:
     marginLeft: -3
