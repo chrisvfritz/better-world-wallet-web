@@ -24,8 +24,8 @@ module.exports = React.createClass #Radium.wrap
   # ----------
 
   propTypes:
-    errors: React.PropTypes.func.isRequired
-    callback: React.PropTypes.func.isRequired
+    errors:  React.PropTypes.func.isRequired
+    success: React.PropTypes.func.isRequired
 
   # ---------
   # LIFECYCLE
@@ -33,12 +33,6 @@ module.exports = React.createClass #Radium.wrap
 
   getInitialState: ->
     warn: false
-
-  componentWillMount: ->
-    @blink_warning = (value) ->
-      @setState
-        warn: true
-        last_bad_value: value
 
   componentDidUpdate: (prev_props, prev_state) ->
     if @state.warn and not prev_state.warn
@@ -55,11 +49,13 @@ module.exports = React.createClass #Radium.wrap
   handle_change: (event) ->
     value = event.target.value
     if @props.errors(value)
-      @blink_warning(value)
+      @setState
+        warn: true
+        last_bad_value: value
     else
       @setState
         warn: false
-      @props.callback value
+      @props.success value
 
   handle_blur: (event) ->
     unless _manually_triggering_events
@@ -75,7 +71,7 @@ module.exports = React.createClass #Radium.wrap
       onBlur  = { @handle_blur }
       overlay = {
         if @state.warn
-          <Popover title={ "Bad value: #{@state.last_bad_value}" }>
+          <Popover title={ "You tried to enter: #{@state.last_bad_value}" }>
             { @props.errors @state.last_bad_value }
           </Popover>
         else

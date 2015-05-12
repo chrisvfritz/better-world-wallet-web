@@ -27,6 +27,17 @@ module.exports = React.createClass Radium.wrap
   propTypes:
     default_percent: React.PropTypes.number.isRequired
 
+  validation_errors: (value) ->
+    value_int = parseInt value
+    donatee = @getModel()
+    if donatee.max_percent() is 0
+      return "This is the last empty percentage, so you actually can't enter anything here. Otherwise, you could end up donating less than 100% of the amount you want to."
+    if value_int > donatee.max_percent()
+      return "Uh oh. That would exceed 100%!"
+    if value_int is 0 or not /^\d{0,3}$/.test(value)
+      return "That's not a valid character in a positive integer."
+    false
+
   # -------
   # ACTIONS
   # -------
@@ -43,7 +54,7 @@ module.exports = React.createClass Radium.wrap
 
     <InputWithValidations
       errors      = { @validation_errors     }
-      callback    = { @success_callback      }
+      success     = { @success_callback      }
       value       = { @formatted_percent()   }
       placeholder = { @props.default_percent }
       style       = { styles.input           }
@@ -59,17 +70,6 @@ module.exports = React.createClass Radium.wrap
 
   formatted_percent: ->
     @getModel().get('percent') || ''
-
-  validation_errors: (value) ->
-    value_int = parseInt value
-    donatee = @getModel()
-    if donatee.max_percent() is 0
-      return "This is the last empty percentage, so you actually can't enter anything here. Otherwise, you could end up donating less than 100% of the amount you want to."
-    if value_int > donatee.max_percent()
-      return "Uh oh. That would exceed 100%!"
-    if value_int is 0 or not /^\d{0,3}$/.test(value)
-      return "That's not a valid character in a positive integer."
-    false
 
 # ------
 # STYLES

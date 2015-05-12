@@ -27,8 +27,8 @@ module.exports = React.createClass
   # ----------
 
   propTypes:
-    query: React.PropTypes.string.isRequired
-    search_callback: React.PropTypes.func.isRequired
+    query:                 React.PropTypes.string.isRequired
+    search_callback:       React.PropTypes.func.isRequired
     clear_search_callback: React.PropTypes.func.isRequired
 
   # ---------
@@ -36,7 +36,7 @@ module.exports = React.createClass
   # ---------
 
   componentWillReceiveProps: (next_props) ->
-    @should_focus = @props.query.length > 0 and next_props.query.length == 0
+    @should_focus = @props.query.length > 0 and next_props.query.length is 0
 
   componentWillMount: ->
     @delayed_search = _debounce (query) =>
