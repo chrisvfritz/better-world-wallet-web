@@ -46,12 +46,18 @@ module.exports = React.createClass Radium.wrap
     @getModel().set
       percent: value
 
+  # -------
+  # HELPERS
+  # -------
+
+  formatted_percent: ->
+    @getModel().get('percent') || ''
+
   # ------
   # RENDER
   # ------
 
   render: ->
-
     <InputWithValidations
       errors      = { @validation_errors     }
       success     = { @success_callback      }
@@ -63,13 +69,6 @@ module.exports = React.createClass Radium.wrap
       bsSize      = 'small'
       standalone  = true
     />
-
-  # -------
-  # HELPERS
-  # -------
-
-  formatted_percent: ->
-    @getModel().get('percent') || ''
 
 # ------
 # STYLES

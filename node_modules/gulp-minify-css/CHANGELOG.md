@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.1] - 2015-05-03
+
+### Changed
+
+- index.js
+  * Improve path handlong for more correct Source Map. ([#89](https://github.com/jonathanepollack/gulp-minify-css/issues/89))
+
 ## [1.1.0] - 2015-04-21
 
 ### Added

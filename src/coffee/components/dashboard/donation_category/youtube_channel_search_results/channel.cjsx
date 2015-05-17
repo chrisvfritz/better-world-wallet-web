@@ -56,6 +56,19 @@ module.exports = React.createClass Radium.wrap
       @getModel().get('donatees').add new DonateeModel(@props.channel_props)
       @props.click_callback()
 
+  # -------
+  # HELPERS
+  # -------
+
+  prevent_propagation: (event) ->
+    if event.stopPropagation
+      event.stopPropagation()
+    else if window.event
+      window.event.cancelBubble = true
+
+  is_already_added: ->
+    @props.channel_props.id in @props.donatee_ids
+
   # ------
   # RENDER
   # ------
@@ -90,19 +103,6 @@ module.exports = React.createClass Radium.wrap
         }
       </td>
     </tr>
-
-  # -------
-  # HELPERS
-  # -------
-
-  prevent_propagation: (event) ->
-    if event.stopPropagation
-      event.stopPropagation()
-    else if window.event
-      window.event.cancelBubble = true
-
-  is_already_added: ->
-    @props.channel_props.id in @props.donatee_ids
 
 # ------
 # STYLES

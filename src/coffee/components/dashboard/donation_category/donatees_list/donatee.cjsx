@@ -31,6 +31,26 @@ module.exports = React.createClass Radium.wrap
   componentDidMount: ->
     @highlight()
 
+  # -------
+  # HELPERS
+  # -------
+
+  highlight: ->
+    setTimeout =>
+      @setState
+        was_just_added: true
+      setTimeout =>
+        @setState
+          was_just_added: false
+      , 2000
+    , 1
+
+  formatted_default_percent: ->
+    Math.floor( @getModel().default_percent() * 1000 ) / 10
+
+  formatted_donation: ->
+    Accounting.formatMoney @props.donation * @getModel().decimal_percent()
+
   # ------
   # RENDER
   # ------
@@ -52,26 +72,6 @@ module.exports = React.createClass Radium.wrap
         <RemoveDonateeButton remove_callback={ @remove_donatee }/>
       </td>
     </tr>
-
-  # -------
-  # HELPERS
-  # -------
-
-  highlight: ->
-    setTimeout =>
-      @setState
-        was_just_added: true
-      setTimeout =>
-        @setState
-          was_just_added: false
-      , 2000
-    , 1
-
-  formatted_default_percent: ->
-    Math.floor( @getModel().default_percent() * 1000 ) / 10
-
-  formatted_donation: ->
-    Accounting.formatMoney @props.donation * @getModel().decimal_percent()
 
 # ------
 # STYLES

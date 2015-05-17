@@ -62,6 +62,13 @@ module.exports = React.createClass #Radium.wrap
       @setState
         warn: false
 
+  # -------
+  # HELPERS
+  # -------
+
+  input_style: ->
+    'warning' if @state.warn
+
   # ------
   # RENDER
   # ------
@@ -87,10 +94,3 @@ module.exports = React.createClass #Radium.wrap
         {... @props }
       />
     </OverlayTrigger>
-
-  # -------
-  # HELPERS
-  # -------
-
-  input_style: ->
-    'warning' if @state.warn

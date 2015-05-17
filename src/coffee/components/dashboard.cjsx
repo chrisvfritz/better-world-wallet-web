@@ -42,42 +42,57 @@ module.exports = React.createClass Radium.wrap
   # RENDER
   # ------
 
+  renderDonationTotal: ->
+    <Card>
+      <div style={ styles.total.container }>
+        <h2 style={[ styles.total.text.base, styles.total.text.first]}>
+          Total: {
+            Accounting.formatMoney @getCollection().donation_total()
+          }
+        </h2>
+        <Button
+          onClick = { @add_new_category      }
+          style   = { styles.total.text.base }
+          bsSize  = 'medium'
+          bsStyle = 'primary'
+        >
+          <Glyphicon glyph='plus'/>
+        </Button>
+      </div>
+    </Card>
+
+  renderDonationCategories: ->
+    @getCollection().map (category) ->
+      <DonationCategory
+        key   = { category.cid }
+        model = { category     }
+      />
+
+  renderWelcomeMessage: ->
+    <div>
+      <h3 style={ styles.welcome.heading }>
+        Welcome!
+      </h3>
+      <p style={[ @getCollection().total_donatees() > 0 and styles.welcome.paragraph.last ]}>
+        As you add donations and categories, a summary graph will appear below to visualize your values as reflected in how you vote with your money.
+      </p>
+      {
+        if @getCollection().total_donatees() is 0
+          <p style={ styles.welcome.paragraph.last }>
+            Try adding your first channel now in the <code>Add a new channel...</code> input.
+          </p>
+      }
+    </div>
+
   render: ->
     <Row>
       <Col md=6>
-        <Card>
-          <div style={ styles.total.container }>
-            <h2 style={[ styles.total.text.base, styles.total.text.first]}>
-              Total: {
-                Accounting.formatMoney @getCollection().donation_total()
-              }
-            </h2>
-            <Button
-              onClick = { @add_new_category      }
-              style   = { styles.total.text.base }
-              bsSize  = 'medium'
-              bsStyle = 'primary'
-            >
-              <Glyphicon glyph='plus'/>
-            </Button>
-          </div>
-        </Card>
-        {
-          @getCollection().map (category) ->
-            <DonationCategory
-              key   = { category.cid }
-              model = { category     }
-            />
-        }
+        { @renderDonationTotal() if @getCollection().donation_total() > 0 }
+        { @renderDonationCategories() }
       </Col>
       <Col md=6>
         <Card>
-          <h3 style={ styles.welcome.heading }>
-            Welcome!
-          </h3>
-          <p style={ styles.welcome.paragraph }>
-            As you add donations and categories, a summary graph will appear below to visualize your values as reflected in how you vote with your money.
-          </p>
+          { @renderWelcomeMessage() }
           <DonationChart/>
         </Card>
       </Col>
@@ -95,7 +110,9 @@ styles =
       marginTop: 0
 
     paragraph:
-      marginBottom: 0
+
+      last:
+        marginBottom: 0
 
   total:
 

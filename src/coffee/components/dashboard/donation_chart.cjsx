@@ -20,27 +20,6 @@ module.exports = React.createClass
 
   mixins: [ BackboneMixin ]
 
-  # ------
-  # RENDER
-  # ------
-
-  render: ->
-    <div>
-      {
-        sorted_categories = _sortBy @getCollection().models, (category) -> -category.donation_float()
-        sorted_categories.map (category) =>
-          donation = category.donation_float()
-          if donation > 0
-            <Bar
-              key        = { category.cid            }
-              collection = { category.get 'donatees' }
-              donation   = { donation                }
-              width      = { @scale_x donation       }
-              title      = { category.get 'title'    }
-            />
-      }
-    </div>
-
   # -------
   # HELPERS
   # -------
@@ -54,3 +33,25 @@ module.exports = React.createClass
         category.donation_float()
       else
         0
+
+  # ------
+  # RENDER
+  # ------
+
+  render: ->
+    <div>
+      {
+        sorted_categories = _sortBy @getCollection().models, (category) -> -category.donation_float()
+        sorted_categories.map (category) =>
+          donation = category.donation_float()
+          donatees = category.get('donatees')
+          if donation > 0 and donatees.length > 0
+            <Bar
+              key        = { category.cid         }
+              collection = { donatees             }
+              donation   = { donation             }
+              width      = { @scale_x donation    }
+              title      = { category.get 'title' }
+            />
+      }
+    </div>

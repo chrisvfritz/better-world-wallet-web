@@ -32,6 +32,8 @@ class DonationCategory extends ModelBase
         else
           @set 'title', 'General'
           @set 'donation', 0
+    donatees.on 'add remove', =>
+      @trigger 'change'
 
   donation_float: ->
     parseFloat @get('donation')

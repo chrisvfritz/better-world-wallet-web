@@ -22,6 +22,12 @@ class DonationCategories extends Backbone.Collection
         category.donation_float() || 0
       .reduce ( (a,b) -> a + b ), 0
 
+  total_donatees: ->
+    @
+      .map (category) ->
+        category.get('donatees').length
+      .reduce ( (a,b) -> a + b ), 0
+
   # Eventually I'll want to fetch records from an API for a specific user with
   # custom params and I may do so similar to below:
 
