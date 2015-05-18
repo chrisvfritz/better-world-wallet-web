@@ -6,7 +6,7 @@
 Backbone = require 'backbone'
 
 # Models
-Donatee = require './donatee'
+Donatee = require './Donatee'
 
 # ----------
 # COLLECTION

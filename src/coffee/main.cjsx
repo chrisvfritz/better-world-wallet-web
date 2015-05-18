@@ -7,11 +7,11 @@ React            = require 'react'
 attach_fastclick = require 'fastclick'
 
 # Models
-DonationCategories = require 'models/donation_categories'
-DonationCategory   = require 'models/donation_category'
+DonationCategories = require 'models/DonationCategories'
+DonationCategory   = require 'models/DonationCategory'
 
 # Components
-Dashboard = require './components/dashboard'
+Dashboard = require './components/Dashboard'
 
 # ----------
 # INITIALIZE
@@ -28,4 +28,4 @@ donation_categories = new DonationCategories [
 # RENDER
 # ------
 
-React.render <Dashboard collection={donation_categories}/>, document.getElementById('dashboard')
+React.render <Dashboard collection={ donation_categories }/>, document.getElementById('dashboard')

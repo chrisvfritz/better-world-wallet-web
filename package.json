@@ -32,6 +32,7 @@
     "radium": "^0.11.1",
     "react": "^0.13.3",
     "react-bootstrap": "^0.21.2",
+    "react-tween-state": "0.0.5",
     "superagent": "^1.2.0",
     "underscore": "^1.8.3",
     "yargs": "^3.8.0"
